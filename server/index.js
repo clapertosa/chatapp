@@ -8,7 +8,7 @@ const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev, dir: "client" });
 const nextHandler = nextApp.getRequestHandler();
 
-io.on("connection", socket => {
+io.on("connect", socket => {
   console.log("Connected to socket.io!");
 });
 

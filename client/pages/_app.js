@@ -1,6 +1,8 @@
 import App, { Container } from "next/app";
+import Head from "next/head";
 import React from "react";
 import io from "socket.io-client";
+import Layout from "../hoc/Layout/Layout";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -30,7 +32,12 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <Component {...pageProps} socket={this.state.socket} />
+        <Head>
+          <title>Chat App</title>
+        </Head>
+        <Layout>
+          <Component {...pageProps} socket={this.state.socket} />
+        </Layout>
       </Container>
     );
   }
