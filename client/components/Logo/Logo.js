@@ -10,11 +10,11 @@ const Container = styled.div`
     align-items: center;
     height: 100%;
   }
-`;
 
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const Logo = ({ navbar }) => {
@@ -22,7 +22,7 @@ const Logo = ({ navbar }) => {
     <Container navbar={navbar}>
       <Link href="/">
         <a>
-          <Image src="../../static/images/logo.svg" />
+          <img src="/static/images/logo.svg" />
         </a>
       </Link>
     </Container>

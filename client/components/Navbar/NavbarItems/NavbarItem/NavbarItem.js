@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const ContainerDesktop = styled.li`
+const ContainerDesktop = styled.div`
   border-right: 1px solid ${props => props.theme.colors.strongPink};
   border-left: 1px solid ${props => props.theme.colors.strongPink};
   height: 100%;
@@ -22,7 +22,7 @@ const ContainerDesktop = styled.li`
   }
 `;
 
-const ContainerMobile = styled.li`
+const ContainerMobile = styled.div`
   border: 1px solid ${props => props.theme.colors.strongPink};
   margin: 10px auto;
   height: 100%;

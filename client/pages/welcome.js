@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
-import Link from "../components/styles/Link";
+import StyledLink from "../components/styles/StyledLink";
 
 class Welcome extends Component {
   render() {
     return (
-      <div style={{ position: "relative" }}>
+      <div>
         <Jumbotron fadeInTime="2.3s" width="70%">
           <h1>Welcome to Chat App</h1>
           <img
@@ -13,8 +13,10 @@ class Welcome extends Component {
             src="/static/images/logo.svg"
             alt="Chat App balloon logo"
           />
+          <hr />
           <h1>
-            Please <Link href="/login">Login</Link> to join or create chatroom
+            Please <StyledLink href="/login">Login</StyledLink> to join or
+            create chatroom
           </h1>
         </Jumbotron>
       </div>

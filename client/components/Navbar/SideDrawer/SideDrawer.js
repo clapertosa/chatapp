@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 70%;
   height: calc(100% - ${props => props.theme.navbarHeight});
   background-color: ${props => props.theme.colors.strongBlue};
-  background-image: url("../../../static/images/balloons.svg");
+  background-image: url("/static/images/balloons.svg");
   background-position: center;
   background-position-y: bottom;
   background-size: contain;

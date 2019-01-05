@@ -1,9 +1,9 @@
-import { default as NextLink } from "next/link";
+import Link from "next/link";
 import styled from "styled-components";
 
 const Anchor = styled.a`
   text-decoration: none;
-  border-bottom: 1px dashed ${({ theme: { colors } }) => colors.strongPink};
+  border-bottom: 1px solid ${({ theme: { colors } }) => colors.strongPink};
 
   &:hover {
     font-family: "Webpixel";
@@ -12,12 +12,12 @@ const Anchor = styled.a`
   }
 `;
 
-const Link = ({ href, children }) => {
+const StyledLink = ({ href, children }) => {
   return (
-    <NextLink href={href}>
+    <Link href={href}>
       <Anchor href={href}>{children}</Anchor>
-    </NextLink>
+    </Link>
   );
 };
 
-export default Link;
+export default StyledLink;

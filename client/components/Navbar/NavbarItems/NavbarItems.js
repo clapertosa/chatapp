@@ -3,28 +3,26 @@ import NavbarItem from "./NavbarItem/NavbarItem";
 import Logo from "../../Logo/Logo";
 import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 
-const ContainerDesktop = styled.ul`
+const ContainerDesktop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
   margin: 0;
   padding: 0%;
-  list-style: none;
 
   @media (min-width: ${props => props.theme.mediaQuery.minWidth}) {
     justify-content: space-evenly;
   }
 `;
 
-const ContainerMobile = styled.ul`
+const ContainerMobile = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-flow: column;
   margin: 30px auto;
   padding: 0%;
-  list-style: none;
 `;
 
 const Left = styled.div`
@@ -49,6 +47,9 @@ const NavbarItems = ({ sideDrawer, showSideDrawerToggle }) => {
       <NavbarItem mobile href="/login">
         Login
       </NavbarItem>
+      <NavbarItem mobile href="/registration">
+        Register
+      </NavbarItem>
       <NavbarItem mobile href="/about">
         About
       </NavbarItem>
@@ -60,6 +61,7 @@ const NavbarItems = ({ sideDrawer, showSideDrawerToggle }) => {
       </Left>
       <Right>
         <NavbarItem href="/login">Login</NavbarItem>
+        <NavbarItem href="/registration">Register</NavbarItem>
         <NavbarItem href="/about">About</NavbarItem>
       </Right>
       <DrawerToggle toggle={showSideDrawerToggle} />
