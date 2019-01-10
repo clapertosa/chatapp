@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import checkLoggedIn from "../lib/checkLoggedIn";
+import redirect from "../lib/redirect";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
 import StyledLink from "../components/styles/StyledLink";
 
@@ -23,5 +25,15 @@ class Welcome extends Component {
     );
   }
 }
+
+Welcome.getInitialProps = async context => {
+  const { user } = await checkLoggedIn(context.apolloClient);
+
+  if (user.currentUser) {
+    redirect(context, "/");
+  }
+
+  return {};
+};
 
 export default Welcome;

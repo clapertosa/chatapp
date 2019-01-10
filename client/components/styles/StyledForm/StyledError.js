@@ -5,7 +5,16 @@ const Error = styled.div`
   color: ${({ theme: { colors } }) => colors.mediumPink};
 `;
 
-const StyledError = ({ children }) => {
+const StyledError = ({ children, errors }) => {
+  if (errors) {
+    return (
+      <Error>
+        {errors.map(error => {
+          return error.error.message;
+        })}
+      </Error>
+    );
+  }
   return <Error>{children}</Error>;
 };
 

@@ -12,6 +12,7 @@ const Input = styled.input`
   border: 1px solid ${({ theme: { colors } }) => colors.strongPink};
 
   &[type="text"],
+  &[type="email"],
   &[type="password"] {
     font-size: 1.1rem;
     font-weight: bold;

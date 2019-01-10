@@ -1,16 +1,12 @@
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
-import Spinner from "../components/UI/Spinner/Spinner";
+import { default as ProfileComponent } from "../components/Profile/Profile";
 
-const Index = () => {
-  return (
-    <div>
-      <Spinner />
-    </div>
-  );
+const Profile = () => {
+  return <ProfileComponent />;
 };
 
-Index.getInitialProps = async context => {
+Profile.getInitialProps = async context => {
   const { user } = await checkLoggedIn(context.apolloClient);
 
   if (!user.currentUser) {
@@ -19,4 +15,5 @@ Index.getInitialProps = async context => {
 
   return {};
 };
-export default Index;
+
+export default Profile;

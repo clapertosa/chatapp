@@ -6,10 +6,11 @@ const Container = styled.div`
   margin: 10px auto;
   max-width: 50rem;
   width: 80%;
+  filter: ${props => (props.showModal ? "blur(5px)" : null)};
 `;
 
-const StyledContainer = ({ children }) => {
-  return <Container>{children}</Container>;
+const StyledContainer = ({ children, modalIsOpened }) => {
+  return <Container showModal={modalIsOpened}>{children}</Container>;
 };
 
 export default StyledContainer;

@@ -1,4 +1,6 @@
 import App, { Container } from "next/app";
+import withApollo from "../lib/withApollo";
+import { ApolloProvider } from "react-apollo";
 import Head from "next/head";
 import React from "react";
 import io from "socket.io-client";
@@ -29,18 +31,20 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
       <Container>
-        <Head>
-          <title>Chat App</title>
-        </Head>
-        <Layout>
-          <Component {...pageProps} socket={this.state.socket} />
-        </Layout>
+        <ApolloProvider client={apollo}>
+          <Head>
+            <title>Chat App</title>
+          </Head>
+          <Layout>
+            <Component {...pageProps} socket={this.state.socket} />
+          </Layout>
+        </ApolloProvider>
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default withApollo(MyApp);

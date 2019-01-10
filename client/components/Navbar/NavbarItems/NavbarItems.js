@@ -2,6 +2,7 @@ import styled from "styled-components";
 import NavbarItem from "./NavbarItem/NavbarItem";
 import Logo from "../../Logo/Logo";
 import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
+import User from "../../../hoc/User/User";
 
 const ContainerDesktop = styled.div`
   display: flex;
@@ -43,29 +44,40 @@ const Right = styled.div`
 
 const NavbarItems = ({ sideDrawer, showSideDrawerToggle }) => {
   return sideDrawer ? (
-    <ContainerMobile>
-      <NavbarItem mobile href="/login">
-        Login
-      </NavbarItem>
-      <NavbarItem mobile href="/registration">
-        Register
-      </NavbarItem>
-      <NavbarItem mobile href="/about">
-        About
-      </NavbarItem>
-    </ContainerMobile>
+    <User>
+      {({ data: { currentUser } }) => (
+        <ContainerMobile>
+          <NavbarItem mobile href={`/${currentUser ? "profile" : "login"}`}>
+            {currentUser ? currentUser.nickname : "Login"}
+          </NavbarItem>
+          <NavbarItem
+            mobile
+            href={`/${currentUser ? "logout" : "registration"}`}
+          >
+            {currentUser ? "Logout" : "Register"}
+          </NavbarItem>
+        </ContainerMobile>
+      )}
+    </User>
   ) : (
-    <ContainerDesktop>
-      <Left>
-        <Logo navbar />
-      </Left>
-      <Right>
-        <NavbarItem href="/login">Login</NavbarItem>
-        <NavbarItem href="/registration">Register</NavbarItem>
-        <NavbarItem href="/about">About</NavbarItem>
-      </Right>
-      <DrawerToggle toggle={showSideDrawerToggle} />
-    </ContainerDesktop>
+    <User>
+      {({ data: { currentUser } }) => (
+        <ContainerDesktop>
+          <Left>
+            <Logo navbar />
+          </Left>
+          <Right>
+            <NavbarItem href={`/${currentUser ? "profile" : "login"}`}>
+              {currentUser ? currentUser.nickname : "Login"}
+            </NavbarItem>
+            <NavbarItem href={`/${currentUser ? "logout" : "registration"}`}>
+              {currentUser ? "Logout" : "Register"}
+            </NavbarItem>
+          </Right>
+          <DrawerToggle toggle={showSideDrawerToggle} />
+        </ContainerDesktop>
+      )}
+    </User>
   );
 };
 

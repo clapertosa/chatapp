@@ -7,6 +7,7 @@ const Button = styled.button`
   padding: 5px 20px;
   text-transform: uppercase;
   font-size: 1.3rem;
+  max-width: 130px;
 
   &:active {
     background-color: ${({ theme: { colors } }) => colors.strongBlue};
