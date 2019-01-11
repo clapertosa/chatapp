@@ -54,6 +54,13 @@ nextApp.prepare().then(() => {
     })(req, res);
   });
 
+  // Clean url for chatrooms
+  app.get("/chatroom/:name", (req, res) => {
+    const actualPage = "/chatroom";
+    const queryParams = { name: req.params.name };
+    nextApp.render(req, res, actualPage, queryParams);
+  });
+
   app.get("*", (req, res) => {
     return nextHandler(req, res);
   });

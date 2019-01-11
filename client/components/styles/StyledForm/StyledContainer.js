@@ -5,12 +5,16 @@ const Container = styled.div`
   justify-content: center;
   margin: 10px auto;
   max-width: 50rem;
-  width: 80%;
+  width: ${props => props.width || "80%"};
   filter: ${props => (props.showModal ? "blur(5px)" : null)};
 `;
 
-const StyledContainer = ({ children, modalIsOpened }) => {
-  return <Container showModal={modalIsOpened}>{children}</Container>;
+const StyledContainer = ({ children, modalIsOpened, width }) => {
+  return (
+    <Container showModal={modalIsOpened} width={width}>
+      {children}
+    </Container>
+  );
 };
 
 export default StyledContainer;

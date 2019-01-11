@@ -1,13 +1,9 @@
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
-import Spinner from "../components/UI/Spinner/Spinner";
+import CreateJoin from "../containers/CreateJoin";
 
 const Index = () => {
-  return (
-    <div>
-      <Spinner />
-    </div>
-  );
+  return <CreateJoin />;
 };
 
 Index.getInitialProps = async context => {

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import checkLoggedIn from "../../lib/checkLoggedIn";
+import redirect from "../../lib/redirect";
 import RegistrationForm from "../../components/Form/RegistrationForm/RegistrationForm";
 import Modal from "../../components/Modal/Modal";
 
@@ -23,5 +25,15 @@ class Registration extends Component {
     );
   }
 }
+
+Registration.getInitialProps = async context => {
+  const { user } = await checkLoggedIn(context.apolloClient);
+
+  if (user.currentUser) {
+    redirect(context, "/");
+  }
+
+  return {};
+};
 
 export default Registration;

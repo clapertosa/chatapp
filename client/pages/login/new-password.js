@@ -2,6 +2,8 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Formik } from "formik";
 import { isEmail, normalizeEmail } from "validator";
+import checkLoggedIn from "../../lib/checkLoggedIn";
+import redirect from "../../lib/redirect";
 import StyledContainer from "../../components/styles/StyledForm/StyledContainer";
 import StyledForm from "../../components/styles/StyledForm/StyledForm";
 import StyledInput from "../../components/styles/StyledForm/StyledInput";
@@ -88,6 +90,16 @@ const NewPassword = () => {
       )}
     </Mutation>
   );
+};
+
+NewPassword.getInitialProps = async context => {
+  const { user } = await checkLoggedIn(context.apolloClient);
+
+  if (user.currentUser) {
+    redirect(context, "/");
+  }
+
+  return {};
 };
 
 export default NewPassword;

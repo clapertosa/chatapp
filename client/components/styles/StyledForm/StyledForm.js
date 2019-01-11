@@ -33,9 +33,9 @@ const InputArea = styled.div`
 const ButtonArea = styled.div`
   grid-area: button;
   display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: flex-end;
+  flex-flow: ${props => props.flexFlow || "column"};
+  justify-content: ${props => (props.flexFlow ? "flex-end" : "center")};
+  align-items: ${props => (props.flexFlow ? "center" : "flex-end")};
   text-align: right;
 
   a {
@@ -44,14 +44,21 @@ const ButtonArea = styled.div`
   }
 `;
 
-const StyledForm = ({ title, method, children, button, handleSubmit }) => {
+const StyledForm = ({
+  title,
+  method,
+  children,
+  button,
+  handleSubmit,
+  flexFlow
+}) => {
   return (
     <Form method={method} onSubmit={handleSubmit}>
       <TitleArea>
         <Title>{title}</Title>
       </TitleArea>
       <InputArea>{children}</InputArea>
-      <ButtonArea>{button}</ButtonArea>
+      <ButtonArea flexFlow={flexFlow}>{button}</ButtonArea>
     </Form>
   );
 };

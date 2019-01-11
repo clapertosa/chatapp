@@ -67,8 +67,8 @@ class LoginForm extends Component {
               }
               return errors;
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              this.login(client, values);
+            onSubmit={async (values, { setSubmitting }) => {
+              await this.login(client, values);
               setSubmitting(false);
             }}
           >
