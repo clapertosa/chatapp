@@ -11,6 +11,22 @@ const theme = {
     mediumPink: "#ff87ab",
     lightPink: "#fcc8c2"
   },
+  message: {
+    currentUser: {
+      borderLeft: "15px solid #1b065e",
+      borderRight: "15px solid transparent",
+      borderTop: "15px solid #1b065e",
+      borderBottom: "15px solid transparent",
+      right: "-16px"
+    },
+    anotherUser: {
+      borderLeft: "15px solid transparent",
+      borderRight: "15px solid #1b065e",
+      borderTop: "15px solid #1b065e",
+      borderBottom: "15px solid transparent",
+      left: "-16px"
+    }
+  },
   mediaQuery: { minWidth: "40rem" }
 };
 
@@ -33,6 +49,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     color: ${theme.colors.lightPink};
+    scrollbar-color: #db3bc8 #fcc8c2;
+    scrollbar-width: thin;
 
     a {
       color: ${theme.colors.lightPink};

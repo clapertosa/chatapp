@@ -67,7 +67,7 @@ class CreateJoin extends Component {
     try {
       await client.mutate({
         mutation: CREATE_CHATROOM_MUTATION,
-        variables: { name: name }
+        variables: { name }
       });
       Router.replace(`/chatroom/${name}`);
     } catch (err) {
@@ -119,13 +119,13 @@ class CreateJoin extends Component {
                   }
                   return errors;
                 }}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={async (values, { setSubmitting }) => {
                   this.setState({ error: null, chatroomName: null });
                   if (this.state.clickedButton === "create") {
-                    this.createChatroom(client, values.name);
+                    await this.createChatroom(client, values.name);
                     this.setState({ chatroomName: values.name });
                   } else if (this.state.clickedButton === "join") {
-                    this.joinChatroom(client, values.name);
+                    await this.joinChatroom(client, values.name);
                     this.setState({ chatroomName: values.name });
                   }
                   setSubmitting(false);

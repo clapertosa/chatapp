@@ -15,7 +15,6 @@ const Container = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
   transition: transform 0.2s ease-out;
-
   transform: ${props =>
     props.showSideDrawer ? "translateX(0)" : "translateX(-200%)"};
 

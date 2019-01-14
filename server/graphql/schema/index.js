@@ -52,6 +52,7 @@ module.exports = buildSchema(`
 
     #Chatroom
     joinChatroom(name: String!): String
+    currentChatroom(name: String!): Chatroom
   }
 
   #Root Mutation

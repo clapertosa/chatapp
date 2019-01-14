@@ -55,6 +55,7 @@ module.exports = {
     if (!req.session.isLoggedIn) {
       return null;
     }
+
     //* Check if chatroom exists
     const chatroomExists = await knex("chatrooms")
       .first()
@@ -63,7 +64,29 @@ module.exports = {
     if (!chatroomExists) {
       throw new Error("Chatroom not found");
     }
-
     return "Joined";
+  },
+  currentChatroom: async ({ name }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return null;
+    }
+
+    //* Check if chatroom exists
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ name });
+
+    if (!chatroom) {
+      throw new Error("Chatroom not found");
+    }
+
+    return {
+      id: chatroom.id,
+      name: chatroom.name,
+      admin_id: chatroom.admin_id,
+      protected: chatroom.protected,
+      created_at: chatroom.created_at,
+      updated_at: chatroom.updated_at
+    };
   }
 };

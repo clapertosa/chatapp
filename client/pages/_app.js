@@ -31,10 +31,10 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, apollo } = this.props;
+    const { Component, pageProps, apolloClient } = this.props;
     return (
       <Container>
-        <ApolloProvider client={apollo}>
+        <ApolloProvider client={apolloClient}>
           <Head>
             <title>Chat App</title>
           </Head>
