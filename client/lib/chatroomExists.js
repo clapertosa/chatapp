@@ -7,6 +7,14 @@ const CURRENT_CHATROOM_QUERY = gql`
       name
       protected
       admin_id
+      messages {
+        id
+        message
+        user_id
+        nickname
+        avatar
+        created_at
+      }
       created_at
       updated_at
     }

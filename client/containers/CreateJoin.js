@@ -85,7 +85,7 @@ class CreateJoin extends Component {
     try {
       await client.query({
         query: JOIN_CHATROOM_QUERY,
-        variables: { name: name }
+        variables: { name }
       });
       Router.replace(`/chatroom/${name}`);
     } catch (err) {

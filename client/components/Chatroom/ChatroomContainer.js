@@ -46,13 +46,23 @@ class ChatroomContainer extends Component {
   render() {
     return (
       <Container>
-        <ChatroomHeader showUsersDrawerToggle={this.showUsersDrawerToggle} />
+        <ChatroomHeader
+          showUsersDrawerToggle={this.showUsersDrawerToggle}
+          name={this.props.chatroom.name}
+        />
         <ChatroomUsers
           show={this.state.showUsers}
           closeSideDrawer={this.closeSideDrawer}
+          users={this.props.users}
         />
-        <ChatroomMessages />
-        <ChatroomInput />
+        <ChatroomMessages
+          userId={this.props.user.id}
+          messages={this.props.messages}
+        />
+        <ChatroomInput
+          chatroomId={this.props.chatroom.id}
+          user={this.props.user}
+        />
         <Backdrop
           showBackdrop={this.state.showUsers}
           closeSideDrawer={this.closeSideDrawer}

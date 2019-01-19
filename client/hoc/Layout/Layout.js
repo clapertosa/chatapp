@@ -49,7 +49,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     color: ${theme.colors.lightPink};
-    scrollbar-color: #db3bc8 #fcc8c2;
+    scrollbar-color:  #fcc8c2 #db3bc8;
     scrollbar-width: thin;
 
     a {

@@ -35,6 +35,8 @@ module.exports = buildSchema(`
     name: String!
     protected: Boolean!
     admin_id: ID
+    messages: [Message!]
+    permissions: [Permission!]
     created_at: String!
     updated_at: String!
   }
@@ -42,6 +44,23 @@ module.exports = buildSchema(`
   input ChatroomInput {
     name: String!
     #password: String
+  }
+
+  # Message
+  type Message {
+    id : ID!
+    user_id: ID!
+    message: String!
+    nickname: String!
+    avatar: String!
+    created_at: String!
+  }
+
+  # Permission
+  type Permission {
+    id: ID!
+    user_id: ID!
+    type: String
   }
 
   # Configuration
@@ -68,6 +87,7 @@ module.exports = buildSchema(`
     #Chatroom
     createChatroom(chatroomInput: ChatroomInput): Chatroom
     deleteChatroom(id: ID!): String
+    createMessage(chatroomId: ID! userId: ID!, message: String!): Boolean!
   }
 
   schema {

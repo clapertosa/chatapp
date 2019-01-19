@@ -49,12 +49,12 @@ const DrawerToggle = styled.i`
   }
 `;
 
-const ChatroomHeader = ({ showUsersDrawerToggle }) => {
+const ChatroomHeader = ({ showUsersDrawerToggle, name }) => {
   return (
     <User>
       {({ data: { currentUser } }) => (
         <Container>
-          <Title>asd</Title>
+          <Title>{name}</Title>
           <Options>
             <DrawerToggle
               onClick={showUsersDrawerToggle}

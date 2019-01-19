@@ -47,8 +47,8 @@ module.exports = {
       name: res[0].name,
       protected: res[0].protected,
       admin_id: res[0].admin_id,
-      created_at: res[0].created_at,
-      updated_at: res[0].updated_at
+      created_at: res[0].created_at.toISOString(),
+      updated_at: res[0].updated_at.toISOString()
     };
   },
   joinChatroom: async ({ name }, { req }) => {
@@ -80,13 +80,107 @@ module.exports = {
       throw new Error("Chatroom not found");
     }
 
+    //* Check if chatroom is protected and if user can access it
+    let permissions;
+    if (chatroom.protected) {
+      permissions = await knex("chatrooms").innerJoin(
+        "permissions",
+        "permissions.chatroom_id",
+        "chatrooms.id"
+      );
+
+      const hasUserPermission = permissions.filter(
+        permission => permission.user_id === req.session.user.id
+      );
+
+      if (!hasUserPermission) {
+        throw new Error("User not permitted");
+      }
+    }
+
+    //* Get all messages
+    let messages = await knex("messages")
+      .innerJoin("users", "messages.user_id", "users.id")
+      .where("messages.chatroom_id", chatroom.id)
+      .select(
+        "messages.id",
+        "messages.user_id",
+        "messages.message",
+        "messages.created_at",
+        "users.nickname",
+        "users.avatar"
+      )
+      .orderBy("created_at", "DESC")
+      .limit(50);
+
+    //* Convert timestamps to ISO Strings
+    messages = messages.map(
+      message =>
+        (message = { ...message, created_at: message.created_at.toISOString() })
+    );
+
     return {
       id: chatroom.id,
       name: chatroom.name,
       admin_id: chatroom.admin_id,
       protected: chatroom.protected,
-      created_at: chatroom.created_at,
-      updated_at: chatroom.updated_at
+      messages,
+      created_at: chatroom.created_at.toISOString(),
+      updated_at: chatroom.updated_at.toISOString()
     };
+  },
+
+  createMessage: async ({ chatroomId, userId, message }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    //* Check if chatroom exists
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ id: chatroomId });
+
+    if (!chatroom) {
+      throw new Error("Chatroom not found");
+    }
+
+    //* Check if chatroom is protected and if user can access it
+    let permissions;
+    if (chatroom.protected) {
+      permissions = await knex("chatrooms").innerJoin(
+        "permissions",
+        "permissions.chatroom_id",
+        "chatrooms.id"
+      );
+
+      const hasUserPermission = permissions.filter(
+        permission => permission.user_id === req.session.user.id
+      );
+
+      if (!hasUserPermission) {
+        throw new Error("User not permitted");
+      }
+    }
+
+    //* If messages in this chatroom are more than 100, I'll delete the oldest one
+    const messagesLength = await knex("messages")
+      .where({ chatroom_id: chatroomId })
+      .count()
+      .first();
+
+    if (messagesLength.count >= 50) {
+      await knex.raw(
+        `DELETE FROM messages WHERE id IN (SELECT id FROM messages ORDER BY created_at LIMIT 1);`
+      );
+    }
+
+    //* Insert new message
+    await knex("messages").insert({
+      chatroom_id: chatroomId,
+      user_id: userId,
+      message
+    });
+
+    return true;
   }
 };

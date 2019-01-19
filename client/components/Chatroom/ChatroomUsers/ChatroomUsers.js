@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 `;
 
-const ChatroomUsers = ({ show, closeSideDrawer }) => {
+const ChatroomUsers = ({ show, closeSideDrawer, users }) => {
   let touchStart, touchEnd;
   return (
     <Container
@@ -38,45 +38,13 @@ const ChatroomUsers = ({ show, closeSideDrawer }) => {
       onTouchEnd={() => (touchEnd < touchStart ? closeSideDrawer() : null)}
     >
       <ul>
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
-        <ChatroomUser />
+        {users.map(user => (
+          <ChatroomUser
+            key={user.user.id}
+            nickname={user.user.nickname}
+            avatar={user.user.avatar}
+          />
+        ))}
       </ul>
     </Container>
   );

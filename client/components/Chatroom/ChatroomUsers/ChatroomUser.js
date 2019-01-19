@@ -20,16 +20,13 @@ const Avatar = styled.div`
   }
 `;
 
-const ChatroomUser = () => {
+const ChatroomUser = ({ nickname, avatar }) => {
   return (
     <Container>
       <Avatar>
-        <img
-          src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png"
-          alt=""
-        />
+        <img src={avatar} alt={`${nickname}'s avatar`} />
       </Avatar>{" "}
-      user
+      {nickname}
     </Container>
   );
 };

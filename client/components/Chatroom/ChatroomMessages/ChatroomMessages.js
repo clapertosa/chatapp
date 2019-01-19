@@ -16,12 +16,6 @@ const Container = styled.div`
 `;
 
 class ChatroomMessages extends Component {
-  scrollToBottom = behavior => {
-    setTimeout(() => {
-      this.messagesEnd.scrollIntoView({ behavior });
-    }, 200);
-  };
-
   componentDidMount() {
     this.scrollToBottom("smooth");
   }
@@ -30,37 +24,29 @@ class ChatroomMessages extends Component {
     this.scrollToBottom("smooth");
   }
 
+  scrollToBottom = behavior => {
+    setTimeout(() => {
+      this.messagesEnd.scrollIntoView({ behavior });
+    }, 200);
+  };
+
   render() {
     return (
       <Container>
         <ul>
-          <ChatroomMessage>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime in
-            adipisci placeat, eaque iure fugiat voluptatum laboriosam ipsam,
-            odio beatae aliquid eos quod veritatis porro! Porro consectetur
-            nostrum dolorum dicta.
-          </ChatroomMessage>
-          <ChatroomMessage>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime in
-            adipisci placeat, eaque iure fugiat voluptatum laboriosam ipsam,
-            odio beatae aliquid eos quod veritatis porro! Porro consectetur
-            nostrum dolorum dicta.
-          </ChatroomMessage>
-          <ChatroomMessage>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime in
-            adipisci placeat, eaque iure fugiat voluptatum laboriosam ipsam,
-            odio beatae aliquid eos quod veritatis porro! Porro consectetur
-            nostrum dolorum dicta.
-          </ChatroomMessage>
-          <ChatroomMessage>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime in
-            adipisci placeat, eaque iure fugiat voluptatum laboriosam ipsam,
-            odio beatae aliquid eos quod veritatis porro! Porro consectetur
-            nostrum dolorum dicta.
-          </ChatroomMessage>
-          <ChatroomMessage>Hello!!</ChatroomMessage>
-          <ChatroomMessage>How you doing? 🍹</ChatroomMessage>
-          <ChatroomMessage>Fine! Thanks!! 🐠</ChatroomMessage>
+          {this.props.messages.map((message, index) => (
+            <ChatroomMessage
+              key={index}
+              nickname={message.nickname}
+              avatar={message.avatar}
+              currentUser={
+                this.props.userId === (message.userId || message.user_id)
+              }
+              timestamp={message.created_at}
+            >
+              {message.message}
+            </ChatroomMessage>
+          ))}
           <div
             style={{ float: "left", clear: "both" }}
             ref={el => {

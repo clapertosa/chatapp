@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import moment from "moment";
 
 // If user is logged-in: currentUser, else anotherUser
 const Container = styled.li`
@@ -12,8 +13,8 @@ const Grid = styled.div`
   display: grid;
   grid-template-areas: ${({ currentUser }) =>
     currentUser
-      ? '"name avatar" "message avatar"'
-      : '"avatar name" "avatar message"'};
+      ? '"nickname avatar" "message avatar"'
+      : '"avatar nickname" "avatar message"'};
   grid-column-gap: 10px;
 `;
 
@@ -27,9 +28,11 @@ const Avatar = styled.div`
   }
 `;
 
-const Name = styled.div`
-  grid-area: name;
+const Nickname = styled.div`
+  grid-area: nickname;
   display: flex;
+  color: ${({ theme: { colors } }) => colors.mediumPink};
+  font-weight: bold;
   justify-content: ${({ currentUser }) =>
     currentUser ? "flex-end" : "flex-start"};
 `;
@@ -49,6 +52,8 @@ const Message = styled.div`
   font-weight: 900;
   font-family: arial;
   position: relative;
+
+  white-space: pre-wrap;
 
   &:before {
     content: "";
@@ -91,20 +96,27 @@ const Timestamp = styled.div`
   color: ${({ theme: { colors } }) => colors.strongPink};
 `;
 
-const ChatroomMessage = ({ children, currentUser }) => {
+const ChatroomMessage = ({
+  children,
+  currentUser,
+  nickname,
+  avatar,
+  timestamp
+}) => {
   return (
     <Container currentUser={currentUser}>
       <Grid currentUser={currentUser}>
         <Avatar currentUser={currentUser}>
-          <img
-            src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png"
-            alt=""
-          />
+          <img src={avatar} alt={`${nickname}'s avatar`} />
         </Avatar>
-        <Name currentUser={currentUser}>actaestfabula</Name>
+        <Nickname currentUser={currentUser}>
+          {currentUser ? "me" : nickname}
+        </Nickname>
         <Message currentUser={currentUser}>
           <Text>{children}</Text>
-          <Timestamp>12.30</Timestamp>
+          <Timestamp title={moment(timestamp).format("MMMM DD, YYYY")}>
+            {moment(timestamp).format("HH:mm")}
+          </Timestamp>
         </Message>
       </Grid>
     </Container>

@@ -3,7 +3,6 @@ import withApollo from "../lib/withApollo";
 import { ApolloProvider } from "react-apollo";
 import Head from "next/head";
 import React from "react";
-import io from "socket.io-client";
 import Layout from "../hoc/Layout/Layout";
 
 class MyApp extends App {
@@ -16,19 +15,6 @@ class MyApp extends App {
 
     return { pageProps };
   }
-  state = {
-    socket: null
-  };
-  componentDidMount() {
-    // connect to WS server and listen event
-    const socket = io();
-    this.setState({ socket });
-  }
-
-  // close socket connection
-  componentWillUnmount() {
-    this.state.socket.close();
-  }
 
   render() {
     const { Component, pageProps, apolloClient } = this.props;
@@ -39,7 +25,7 @@ class MyApp extends App {
             <title>Chat App</title>
           </Head>
           <Layout>
-            <Component {...pageProps} socket={this.state.socket} />
+            <Component {...pageProps} />
           </Layout>
         </ApolloProvider>
       </Container>

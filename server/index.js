@@ -7,6 +7,7 @@ const graphqlSchema = require("./graphql/schema");
 const graphqlResolvers = require("./graphql/resolvers");
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
+const { Users } = require("./utils/users");
 const keys = require("./config/keys");
 const next = require("next");
 
@@ -15,8 +16,27 @@ const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev, dir: "client" });
 const nextHandler = nextApp.getRequestHandler();
 
-io.on("connect", socket => {
-  console.log("Connected to socket.io!");
+const users = new Users();
+io.on("connection", socket => {
+  socket.on("join", ({ chatroom, user }) => {
+    socket.join(chatroom.id);
+    users.addUser(user, chatroom.id, socket.id);
+  });
+
+  socket.on("getUsers", chatroomId => {
+    io.to(chatroomId).emit("users", users.getUsersList(chatroomId));
+  });
+
+  socket.on("createMessage", message => {
+    io.to(message.chatroomId).emit("newMessage", message);
+  });
+
+  socket.on("disconnect", () => {
+    let user = users.removeUser(socket.id);
+    if (user) {
+      io.to(user.chatroomId).emit("users", users.getUsersList(user.chatroomId));
+    }
+  });
 });
 
 nextApp.prepare().then(() => {
