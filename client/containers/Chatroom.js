@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import io from "socket.io-client";
 import styled from "styled-components";
-import ChatroomHeader from "./ChatroomHeader";
-import ChatroomMessages from "./ChatroomMessages/ChatroomMessages";
-import ChatroomUsers from "./ChatroomUsers/ChatroomUsers";
-import ChatroomInput from "./ChatroomInput";
-import Backdrop from "../UI/Backdrop/Backdrop";
+import ChatroomHeader from "../components/Chatroom/ChatroomHeader";
+import ChatroomMessages from "../components/Chatroom/ChatroomMessages/ChatroomMessages";
+import ChatroomUsers from "../components/Chatroom/ChatroomUsers/ChatroomUsers";
+import ChatroomInput from "../components/Chatroom/ChatroomInput";
+import Backdrop from "../components/UI/Backdrop/Backdrop";
 
 const Container = styled.div`
   width: 100%;
@@ -28,10 +29,37 @@ const Container = styled.div`
   }
 `;
 
-class ChatroomContainer extends Component {
+class Chatroom extends Component {
   state = {
-    showUsers: false
+    showUsers: false,
+    users: [],
+    messages: []
   };
+
+  componentDidMount() {
+    this.setState({ messages: this.props.chatroom.messages });
+    this.socket = io();
+    this.socket.emit("join", {
+      chatroom: this.props.chatroom,
+      user: this.props.user
+    });
+    this.socket.emit("getUsers", this.props.chatroom.id);
+    this.socket.on("users", users => {
+      this.setState({
+        users: users.sort((a, b) => a.user.nickname > b.user.nickname)
+      });
+    });
+
+    this.socket.on("newMessage", message => {
+      this.setState(prevState => {
+        return { messages: [...prevState.messages, message] };
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
+  }
 
   showUsersDrawerToggle = () => {
     this.setState(prevState => {
@@ -53,11 +81,11 @@ class ChatroomContainer extends Component {
         <ChatroomUsers
           show={this.state.showUsers}
           closeSideDrawer={this.closeSideDrawer}
-          users={this.props.users}
+          users={this.state.users}
         />
         <ChatroomMessages
           userId={this.props.user.id}
-          messages={this.props.messages}
+          messages={this.state.messages}
         />
         <ChatroomInput
           chatroomId={this.props.chatroom.id}
@@ -73,4 +101,4 @@ class ChatroomContainer extends Component {
   }
 }
 
-export default ChatroomContainer;
+export default Chatroom;
