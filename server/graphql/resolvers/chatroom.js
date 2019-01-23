@@ -1,4 +1,5 @@
 const knex = require("../../db/knex");
+const bcrypt = require("bcryptjs");
 const { isLength, isEmpty, isLowercase } = require("validator");
 
 module.exports = {
@@ -7,11 +8,11 @@ module.exports = {
       throw new Error("Unauthorized");
     }
 
-    const chatroomExists = await knex("chatrooms")
+    const chatroom = await knex("chatrooms")
       .first()
       .where({ name });
 
-    if (chatroomExists) {
+    if (chatroom) {
       throw new Error("Chatroom name not available");
     }
 
@@ -42,6 +43,13 @@ module.exports = {
         "updated_at"
       ]);
 
+    //* Set user as the Admin of this chatroom
+    await knex("permissions").insert({
+      user_id: req.session.user.id,
+      chatroom_id: chatroom.id,
+      type: "ADMIN"
+    });
+
     return {
       id: res[0].id,
       name: res[0].name,
@@ -51,20 +59,85 @@ module.exports = {
       updated_at: res[0].updated_at.toISOString()
     };
   },
-  joinChatroom: async ({ name }, { req }) => {
+  joinChatroom: async ({ name }, { req, res }) => {
     if (!req.session.isLoggedIn) {
       return null;
     }
 
     //* Check if chatroom exists
-    const chatroomExists = await knex("chatrooms")
+    const chatroom = await knex("chatrooms")
       .first()
       .where({ name });
 
-    if (!chatroomExists) {
+    if (!chatroom) {
       throw new Error("Chatroom not found");
     }
+
+    if (chatroom.protected) {
+      const userPermitted = await knex("permissions")
+        .first()
+        .where({ chatroom_id: chatroom.id, user_id: req.session.user.id });
+
+      if (!userPermitted) {
+        throw new Error("Unauthorized");
+      }
+    }
+
     return "Joined";
+  },
+  checkPermission: async ({ id }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    const userIsPermitted = await knex("permissions")
+      .first()
+      .where({ chatroom_id: id, user_id: req.session.user.id });
+
+    if (!userIsPermitted) {
+      throw new Error("Unauthorized");
+    }
+
+    return true;
+  },
+  grantPermission: async ({ name, password }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    //* Check if chatroom exists
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ name });
+
+    if (!chatroom) {
+      throw new Error("Chatroom not exists");
+    }
+
+    //* Check if logged user has already access to chatroom
+    const userIsPermitted = await knex("permissions")
+      .first()
+      .where({ user_id: req.session.user.id });
+
+    if (userIsPermitted) {
+      throw new Error("User already permitted");
+    }
+
+    //* Check if provided password is correct
+    const passwordMatch = await bcrypt.compare(password, chatroom.password);
+
+    if (!passwordMatch) {
+      throw new Error("Password wrong");
+    }
+
+    //* Insert user in the permitted chatroom list;
+    await knex("permissions").insert({
+      user_id: req.session.user.id,
+      chatroom_id: chatroom.id,
+      type: "USER"
+    });
+
+    return true;
   },
   currentChatroom: async ({ name }, { req }) => {
     if (!req.session.isLoggedIn) {
@@ -110,7 +183,7 @@ module.exports = {
         "users.nickname",
         "users.avatar"
       )
-      .orderBy("created_at", "DESC")
+      .orderBy("created_at", "ASC")
       .limit(50);
 
     //* Convert timestamps to ISO Strings
@@ -180,6 +253,109 @@ module.exports = {
       user_id: userId,
       message
     });
+
+    return true;
+  },
+  getAllChatrooms: async ({ args }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return null;
+    }
+
+    let chatrooms = await knex("chatrooms").where({
+      admin_id: req.session.user.id
+    });
+
+    chatrooms = chatrooms.map(chatroom => {
+      return { ...chatroom, created_at: chatroom.created_at.toISOString() };
+    });
+
+    return chatrooms;
+  },
+  changeChatroomPassword: async (
+    { id, password, confirmPassword },
+    { req }
+  ) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    //* Check if chatroom exists and if admin_id equals to current session user id
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ id });
+
+    if (!chatroom) {
+      throw new Error("Chatroom not found");
+    }
+
+    if (chatroom.admin_id !== req.session.user.id) {
+      throw new Error("Unauthorized");
+    }
+
+    //* Check if passwords are valid
+    if (isEmpty(password, { ignore_whitespace: true })) {
+      throw new Error("Password required");
+    } else if (password.includes(" ")) {
+      throw new Error("White spaces not allowed");
+    } else if (password !== confirmPassword) {
+      throw new Error("Passwords don't match");
+    }
+
+    //* Encrypt password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    //* Change chatroom password
+    await knex("chatrooms")
+      .update({
+        password: hashedPassword,
+        protected: true
+      })
+      .where({ id });
+  },
+  removePassword: async ({ id }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ id });
+
+    //* Check if chatroom is protected
+    if (!chatroom.protected) {
+      throw new Error("No password was set");
+    }
+
+    //* Check if the authenticated user has created this chatroom
+    if (chatroom.admin_id !== req.session.user.id) {
+      throw new Error("Unauthorized");
+    }
+
+    //* Remove password from chatroom
+    await knex("chatrooms")
+      .update({ password: null, protected: false })
+      .where({ id });
+
+    return true;
+  },
+  deleteChatroom: async ({ id }, { req }) => {
+    if (!req.session.isLoggedIn) {
+      return false;
+    }
+
+    const chatroom = await knex("chatrooms")
+      .first()
+      .where({ id });
+
+    //* Check if the authenticated user has created this chatroom
+    if (chatroom.admin_id !== req.session.user.id) {
+      throw new Error("Unauthorized");
+    }
+
+    //* Delete chatroom and messages (with foreign key in messages table on chatroom_id)
+    await knex("chatrooms")
+      .where({ id })
+      .del();
 
     return true;
   }

@@ -2,20 +2,30 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const Anchor = styled.a`
+  grid-area: ${({ gridArea }) => (gridArea ? gridArea : "")};
   text-decoration: none;
-  border-bottom: 1px solid ${({ theme: { colors } }) => colors.strongPink};
+  border-bottom: ${props =>
+    !props.noBorder ? `1px solid ${props.theme.colors.strongPink}` : null};
 
   &:hover {
-    font-family: "Webpixel";
-    font-size: 2.4rem;
+    font-family: ${({ noHover }) => (!noHover ? "Webpixel" : null)};
+    font-size: ${({ noHover }) => (!noHover ? "2.4rem" : null)};
+    font-weight: normal;
     color: ${({ theme: { colors } }) => colors.strongPink};
   }
 `;
 
-const StyledLink = ({ href, children }) => {
+const StyledLink = ({ children, href, gridArea, noBorder, noHover }) => {
   return (
     <Link href={href}>
-      <Anchor href={href}>{children}</Anchor>
+      <Anchor
+        href={href}
+        gridArea={gridArea}
+        noBorder={noBorder}
+        noHover={noHover}
+      >
+        {children}
+      </Anchor>
     </Link>
   );
 };

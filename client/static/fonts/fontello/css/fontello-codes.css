@@ -1,5 +1,7 @@
 
 .icon-cog:before { content: '\e800'; } /* '' */
 .icon-users:before { content: '\e801'; } /* '' */
+.icon-lock:before { content: '\e802'; } /* '' */
+.icon-lock-open:before { content: '\e803'; } /* '' */
 .icon-menu:before { content: '\f0c9'; } /* '' */
 .icon-paper-plane-empty:before { content: '\f1d9'; } /* '' */

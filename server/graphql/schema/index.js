@@ -72,6 +72,8 @@ module.exports = buildSchema(`
     #Chatroom
     joinChatroom(name: String!): String
     currentChatroom(name: String!): Chatroom
+    getAllChatrooms: [Chatroom!]
+    checkPermission(id: ID!): Boolean!
   }
 
   #Root Mutation
@@ -86,8 +88,11 @@ module.exports = buildSchema(`
 
     #Chatroom
     createChatroom(chatroomInput: ChatroomInput): Chatroom
-    deleteChatroom(id: ID!): String
     createMessage(chatroomId: ID! userId: ID!, message: String!): Boolean!
+    grantPermission(name: String! password: String): Boolean
+    changeChatroomPassword(id: ID!, password: String! confirmPassword: String!): Boolean
+    removePassword(id: ID!): Boolean
+    deleteChatroom(id: ID!): Boolean
   }
 
   schema {

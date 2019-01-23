@@ -89,11 +89,15 @@ class CreateJoin extends Component {
       });
       Router.replace(`/chatroom/${name}`);
     } catch (err) {
-      this.setState({
-        error: err.graphQLErrors,
-        loading: false,
-        clickedButton: undefined
-      });
+      if (err.graphQLErrors[0].error.message === "Unauthorized") {
+        Router.replace(`/access/chatroom/${name}`);
+      } else {
+        this.setState({
+          error: err.graphQLErrors,
+          loading: false,
+          clickedButton: undefined
+        });
+      }
     }
     this.setState({ loading: false });
   };
@@ -200,8 +204,8 @@ class CreateJoin extends Component {
               </Formik>
             </FormArea>
             <CardsArea>
-              <Card />
-              <Card />
+              <Card title="Your last chatrooms" chatrooms={[]} />
+              <Card chatrooms={[]} />
             </CardsArea>
           </Wrapper>
         )}

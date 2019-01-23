@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import User from "../../hoc/User/User";
+import StyledLink from "../styles/StyledLink";
 
 const Container = styled.div`
   grid-area: header;
@@ -49,7 +50,7 @@ const DrawerToggle = styled.i`
   }
 `;
 
-const ChatroomHeader = ({ showUsersDrawerToggle, name }) => {
+const ChatroomHeader = ({ showUsersDrawerToggle, adminId, name }) => {
   return (
     <User>
       {({ data: { currentUser } }) => (
@@ -60,7 +61,11 @@ const ChatroomHeader = ({ showUsersDrawerToggle, name }) => {
               onClick={showUsersDrawerToggle}
               className="icon-users"
             />
-            {currentUser ? <Cog className="icon-cog" /> : null}
+            {currentUser.id === adminId ? (
+              <StyledLink href={`/settings/chatroom/${name}`} noBorder noHover>
+                <Cog className="icon-cog" />
+              </StyledLink>
+            ) : null}
           </Options>
         </Container>
       )}

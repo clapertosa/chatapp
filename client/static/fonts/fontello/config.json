@@ -29,6 +29,18 @@
       "css": "users",
       "code": 59393,
       "src": "fontawesome"
+    },
+    {
+      "uid": "c1f1975c885aa9f3dad7810c53b82074",
+      "css": "lock",
+      "code": 59394,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "657ab647f6248a6b57a5b893beaf35a9",
+      "css": "lock-open",
+      "code": 59395,
+      "src": "fontawesome"
     }
   ]
 }

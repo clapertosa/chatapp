@@ -81,6 +81,18 @@ nextApp.prepare().then(() => {
     nextApp.render(req, res, actualPage, queryParams);
   });
 
+  app.get("/settings/chatroom/:name", (req, res) => {
+    const actualPage = "/settings/chatroom";
+    const queryParams = { name: req.params.name };
+    nextApp.render(req, res, actualPage, queryParams);
+  });
+
+  app.get("/access/chatroom/:name", (req, res) => {
+    const actualPage = "/access/chatroom";
+    const queryParams = { name: req.params.name };
+    nextApp.render(req, res, actualPage, queryParams);
+  });
+
   app.get("*", (req, res) => {
     return nextHandler(req, res);
   });

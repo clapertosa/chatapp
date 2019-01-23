@@ -21,6 +21,7 @@ const CURRENT_CHATROOM_QUERY = gql`
   }
 `;
 
+export { CURRENT_CHATROOM_QUERY };
 export default (apolloClient, name) =>
   apolloClient
     .query({ query: CURRENT_CHATROOM_QUERY, variables: { name } })
