@@ -146,7 +146,8 @@ module.exports = {
         "messages.created_at"
       )
       .orderBy("messages.created_at", "DESC")
-      .distinct("chatrooms.id");
+      .distinct("chatrooms.id")
+      .limit(11);
 
     chatrooms = chatrooms.map(chatroom => {
       return { ...chatroom, created_at: chatroom.created_at.toISOString() };

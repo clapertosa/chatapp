@@ -34,7 +34,7 @@ const Index = ({ chatrooms }) => {
   return chatrooms.length > 0 ? (
     <Container>
       <Title>Edit Chatrooms</Title>
-      <Card title="Your Chatrooms" chatrooms={chatrooms} />
+      <Card title="Chatrooms list" chatrooms={chatrooms} />
     </Container>
   ) : (
     <Container>
