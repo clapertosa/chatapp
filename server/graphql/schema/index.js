@@ -94,7 +94,7 @@ module.exports = buildSchema(`
     changePassword(password: String! confirmPassword: String!): Boolean
 
     #Chatroom
-    createChatroom(chatroomInput: ChatroomInput): Chatroom
+    createChatroom(chatroomInput: ChatroomInput): Boolean
     createMessage(chatroomId: ID! userId: ID!, message: String!): Boolean!
     grantPermission(name: String! password: String): Boolean
     changeChatroomPassword(id: ID!, password: String! confirmPassword: String!): Boolean

@@ -46,18 +46,11 @@ module.exports = {
     //* Set user as the Admin of this chatroom
     await knex("permissions").insert({
       user_id: req.session.user.id,
-      chatroom_id: chatroom.id,
+      chatroom_id: res[0].id,
       type: "ADMIN"
     });
 
-    return {
-      id: res[0].id,
-      name: res[0].name,
-      protected: res[0].protected,
-      admin_id: res[0].admin_id,
-      created_at: res[0].created_at.toISOString(),
-      updated_at: res[0].updated_at.toISOString()
-    };
+    return true;
   },
   joinChatroom: async ({ name }, { req, res }) => {
     if (!req.session.isLoggedIn) {

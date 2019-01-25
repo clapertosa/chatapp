@@ -16,7 +16,7 @@ import Spinner from "../components/UI/Spinner/Spinner";
 const Wrapper = styled.div`
   display: grid;
   grid-template-areas: "form" "cards";
-  grid-row-gap: 50px;
+  grid-row-gap: 20px;
   margin: 10px auto;
   width: 90%;
 
@@ -38,9 +38,7 @@ const CardsArea = styled.div`
 
 const CREATE_CHATROOM_MUTATION = gql`
   mutation CREATE_CHATROOM_MUTATION($name: String!) {
-    createChatroom(chatroomInput: { name: $name }) {
-      id
-    }
+    createChatroom(chatroomInput: { name: $name })
   }
 `;
 
