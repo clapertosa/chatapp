@@ -43,9 +43,9 @@ const ContainerMobile = styled.div`
   }
 `;
 
-const NavbarItem = ({ children, href, mobile }) => {
+const NavbarItem = ({ children, href, mobile, closeSideDrawer }) => {
   return mobile ? (
-    <ContainerMobile>
+    <ContainerMobile onClick={closeSideDrawer}>
       <Link href={href}>
         <a>{children}</a>
       </Link>

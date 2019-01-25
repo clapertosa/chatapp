@@ -256,21 +256,6 @@ module.exports = {
 
     return true;
   },
-  getAllChatrooms: async ({ args }, { req }) => {
-    if (!req.session.isLoggedIn) {
-      return null;
-    }
-
-    let chatrooms = await knex("chatrooms").where({
-      admin_id: req.session.user.id
-    });
-
-    chatrooms = chatrooms.map(chatroom => {
-      return { ...chatroom, created_at: chatroom.created_at.toISOString() };
-    });
-
-    return chatrooms;
-  },
   changeChatroomPassword: async (
     { id, password, confirmPassword },
     { req }

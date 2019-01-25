@@ -7,8 +7,11 @@ const Form = styled.form`
   background-color: ${({ theme: { colors } }) => colors.strongBlue};
   width: 100%;
   padding: 30px;
-  border-radius: 20px;
-  box-shadow: 2px 2px 2px ${({ theme: { colors } }) => colors.strongPink};
+  border-radius: ${({ noBorder }) => (!noBorder ? "20px" : null)};
+  box-shadow: ${({ noBorder }) =>
+    !noBorder
+      ? `2px 2px 2px ${({ theme: { colors } }) => colors.strongPink}`
+      : null};
 `;
 
 const TitleArea = styled.div`
@@ -47,13 +50,14 @@ const ButtonArea = styled.div`
 const StyledForm = ({
   title,
   method,
+  noBorder,
   children,
   button,
   handleSubmit,
   flexFlow
 }) => {
   return (
-    <Form method={method} onSubmit={handleSubmit}>
+    <Form method={method} onSubmit={handleSubmit} noBorder={noBorder}>
       <TitleArea>
         <Title>{title}</Title>
       </TitleArea>

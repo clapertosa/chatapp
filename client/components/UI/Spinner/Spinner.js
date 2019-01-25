@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 100%;
+  width: ${({ width }) => (width ? width : "100%")};
   height: 100%;
   display: flex;
   justify-content: center;
@@ -22,9 +22,9 @@ const getAppropriateCat = () => {
   return "/static/images/nyan_cat.gif";
 };
 
-const Spinner = () => {
+const Spinner = ({ width }) => {
   return (
-    <Container>
+    <Container width={width}>
       <img src={getAppropriateCat()} />
     </Container>
   );

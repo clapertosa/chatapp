@@ -204,8 +204,14 @@ class CreateJoin extends Component {
               </Formik>
             </FormArea>
             <CardsArea>
-              <Card title="Your last chatrooms" chatrooms={[]} />
-              <Card chatrooms={[]} />
+              <Card
+                title="Your chatrooms"
+                chatrooms={this.props.userChatrooms}
+              />
+              <Card
+                title="Written in chatrooms"
+                chatrooms={this.props.writtenInChatrooms}
+              />
             </CardsArea>
           </Wrapper>
         )}

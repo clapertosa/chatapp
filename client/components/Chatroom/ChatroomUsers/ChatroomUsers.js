@@ -8,7 +8,7 @@ const Container = styled.div`
   padding: 10px;
   background-color: ${({ theme: { colors } }) => colors.strongBlue};
   border-right: 1px solid ${({ theme: { colors } }) => colors.strongPink};
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 20;
   transition: transform 0.2s ease-out;
   transform: ${({ show }) => (show ? "translateX(0)" : "translateX(-200%)")};

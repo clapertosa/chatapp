@@ -32,7 +32,7 @@ const SideDrawer = ({ showSideDrawer, closeSideDrawer }) => {
       onTouchMove={touch => (touchEnd = touch.touches[0].screenX)}
       onTouchEnd={() => (touchEnd < touchStart ? closeSideDrawer() : null)}
     >
-      <NavbarItems sideDrawer />
+      <NavbarItems sideDrawer closeSideDrawer={closeSideDrawer} />
     </Container>
   );
 };

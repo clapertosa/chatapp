@@ -142,10 +142,11 @@ module.exports = {
       throw err.message;
     }
 
-    //* Activate the user in DB
+    //* Activate the user in DB and in session
     await knex("users")
       .update({ activated: true })
       .where({ id: decodedUser.id });
+    req.session.user.activated = true;
 
     return "Activated";
   },

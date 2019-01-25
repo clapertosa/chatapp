@@ -5,9 +5,9 @@ import Card from "../../components/Card/Card";
 import styled from "styled-components";
 import StyledLink from "../../components/styles/StyledLink";
 
-const GET_ALL_CHATROOMS_QUERY = gql`
-  query getAllChatrooms {
-    getAllChatrooms {
+const GET_MY_CHATROOMS_QUERY = gql`
+  query getMyChatrooms {
+    getMyChatrooms {
       id
       name
       protected
@@ -53,10 +53,10 @@ Index.getInitialProps = async context => {
   }
 
   const chatrooms = await context.apolloClient.query({
-    query: GET_ALL_CHATROOMS_QUERY
+    query: GET_MY_CHATROOMS_QUERY
   });
 
-  return { chatrooms: chatrooms.data.getAllChatrooms };
+  return { chatrooms: chatrooms.data.getMyChatrooms };
 };
 
 export default Index;

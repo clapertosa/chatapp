@@ -42,15 +42,29 @@ const Right = styled.div`
   }
 `;
 
-const NavbarItems = ({ sideDrawer, showSideDrawerToggle }) => {
+const NavbarItems = ({ sideDrawer, showSideDrawerToggle, closeSideDrawer }) => {
   return sideDrawer ? (
     <User>
       {({ data: { currentUser } }) => (
         <ContainerMobile>
-          <NavbarItem mobile href={`/${currentUser ? "profile" : "login"}`}>
+          <NavbarItem
+            closeSideDrawer={closeSideDrawer}
+            mobile
+            href={`/${currentUser ? "profile" : "login"}`}
+          >
             {currentUser ? currentUser.nickname : "Login"}
           </NavbarItem>
+          {currentUser ? (
+            <NavbarItem
+              closeSideDrawer={closeSideDrawer}
+              mobile
+              href={"/settings"}
+            >
+              Chatrooms
+            </NavbarItem>
+          ) : null}
           <NavbarItem
+            closeSideDrawer={closeSideDrawer}
             mobile
             href={`/${currentUser ? "logout" : "registration"}`}
           >
@@ -70,6 +84,9 @@ const NavbarItems = ({ sideDrawer, showSideDrawerToggle }) => {
             <NavbarItem href={`/${currentUser ? "profile" : "login"}`}>
               {currentUser ? currentUser.nickname : "Login"}
             </NavbarItem>
+            {currentUser ? (
+              <NavbarItem href={"/settings"}>Chatrooms</NavbarItem>
+            ) : null}
             <NavbarItem href={`/${currentUser ? "logout" : "registration"}`}>
               {currentUser ? "Logout" : "Register"}
             </NavbarItem>

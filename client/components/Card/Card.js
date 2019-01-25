@@ -13,7 +13,7 @@ const Container = styled.div`
   box-shadow: 3px 3px 3px ${({ theme: { colors } }) => colors.strongPink};
   width: 80%;
   margin: 10px;
-  max-width: 300px;
+  max-width: 400px;
   max-height: 25rem;
 `;
 

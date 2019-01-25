@@ -10,7 +10,7 @@ Profile.getInitialProps = async context => {
   const { user } = await checkLoggedIn(context.apolloClient);
 
   if (!user.currentUser) {
-    redirect(context, "/welcome");
+    redirect(context, "/login");
   }
 
   return {};

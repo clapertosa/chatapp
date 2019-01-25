@@ -29,7 +29,10 @@ class Navbar extends Component {
     return (
       <>
         <Container>
-          <NavbarItems showSideDrawerToggle={this.showSideDrawerToggle} />
+          <NavbarItems
+            showSideDrawerToggle={this.showSideDrawerToggle}
+            closeSideDrawer={this.closeSideDrawer}
+          />
           <SideDrawer
             showSideDrawer={this.state.showSideDrawer}
             closeSideDrawer={this.closeSideDrawer}

@@ -72,19 +72,26 @@ module.exports = buildSchema(`
     #Chatroom
     joinChatroom(name: String!): String
     currentChatroom(name: String!): Chatroom
-    getAllChatrooms: [Chatroom!]
+    getMyChatrooms: [Chatroom!]
+    getWrittenInChatrooms: [Chatroom!]
     checkPermission(id: ID!): Boolean!
   }
 
   #Root Mutation
   type RootMutation {
-    #User
+    #Auth
     createUser(userInput: UserInput): User
     activateUser(token: String!): String
     login(email: String! password: String!): User!
     logout: String
     newPassword(email: String!): String
     resetPassword(newPassword: String! confirmNewPassword: String!, token: String!): String
+
+    #User
+    changeAvatar(path: String!): Boolean
+    changeNickname(nickname: String!): Boolean
+    changeEmail(email: String! confirmEmail: String!): Boolean
+    changePassword(password: String! confirmPassword: String!): Boolean
 
     #Chatroom
     createChatroom(chatroomInput: ChatroomInput): Chatroom

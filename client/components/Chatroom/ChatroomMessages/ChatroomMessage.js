@@ -23,6 +23,7 @@ const Avatar = styled.div`
   height: 50px;
 
   img {
+    border-radius: 100%;
     height: 100%;
     width: auto;
   }
