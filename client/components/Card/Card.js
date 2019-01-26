@@ -56,7 +56,7 @@ const CreatedAt = styled.div`
   grid-area: createdAt;
 `;
 
-const Card = ({ title, chatrooms }) => {
+const Card = ({ title, chatrooms, settings }) => {
   return (
     <Container>
       <Title>{title}</Title>
@@ -64,7 +64,7 @@ const Card = ({ title, chatrooms }) => {
         {chatrooms.map(chatroom => (
           <StyledLink
             key={chatroom.id}
-            href={`/settings/chatroom/${chatroom.name}`}
+            href={`${settings ? "/settings" : ""}/chatroom/${chatroom.name}`}
             noBorder
             noHover
           >

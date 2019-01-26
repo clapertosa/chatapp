@@ -181,7 +181,6 @@ class CreateJoin extends Component {
                       }
                     >
                       <StyledInput
-                        autoFocus
                         type="text"
                         name="name"
                         value={values.name}
