@@ -5,6 +5,9 @@ import checkPermission from "../lib/checkPermission";
 import ChatroomContainer from "../containers/Chatroom";
 
 const Chatroom = props => {
+  if (!props.chatroom && !props.user) {
+    return null;
+  }
   return <ChatroomContainer chatroom={props.chatroom} user={props.user} />;
 };
 
@@ -14,6 +17,7 @@ Chatroom.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/login");
+    return {};
   }
 
   //* Check if chatroom exists
@@ -22,12 +26,10 @@ Chatroom.getInitialProps = async context => {
     context.query.name
   );
 
-  if (!chatroom) {
+  if (!chatroom.currentChatroom) {
     redirect(context, "/");
-  }
-
-  //* Check if user is permitted
-  if (chatroom.currentChatroom.protected) {
+    return {};
+  } else {
     const { permission } = await checkPermission(
       context.apolloClient,
       chatroom.currentChatroom.id
@@ -36,7 +38,6 @@ Chatroom.getInitialProps = async context => {
       redirect(context, `/access/chatroom/${chatroom.currentChatroom.name}`);
     }
   }
-
   return {
     user: user.currentUser,
     chatroom: chatroom.currentChatroom

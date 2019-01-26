@@ -109,6 +109,7 @@ Access.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/login");
+    return {};
   }
 
   const { chatroom } = await chatroomExists(
@@ -116,8 +117,9 @@ Access.getInitialProps = async context => {
     context.query.name
   );
 
-  if (!chatroom) {
+  if (!chatroom.currentChatroom) {
     redirect(context, "/");
+    return {};
   }
 
   //* Check if user is permitted

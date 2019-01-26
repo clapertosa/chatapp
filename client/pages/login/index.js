@@ -11,7 +11,10 @@ Login.getInitialProps = async context => {
 
   if (user.currentUser) {
     redirect(context, "/");
+    return {};
   }
+
+  await context.apolloClient.cache.reset();
 
   return {};
 };

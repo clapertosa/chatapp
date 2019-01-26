@@ -48,7 +48,10 @@ class Email extends Component {
             >
               {(changeEmail, { data, error, loading }) => (
                 <Formik
-                  initialValues={{ email: currentUser.email, confirmEmail: "" }}
+                  initialValues={{
+                    email: currentUser ? currentUser.email : "",
+                    confirmEmail: ""
+                  }}
                   validate={values => {
                     this.setState({ successMessage: null, errorMessage: null });
                     let errors = {};

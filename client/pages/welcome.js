@@ -28,7 +28,6 @@ class Welcome extends Component {
 
 Welcome.getInitialProps = async context => {
   const { user } = await checkLoggedIn(context.apolloClient);
-
   if (user.currentUser) {
     redirect(context, "/");
   }

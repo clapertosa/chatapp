@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Router from "next/router";
 import io from "socket.io-client";
 import styled from "styled-components";
 import ChatroomHeader from "../components/Chatroom/ChatroomHeader";

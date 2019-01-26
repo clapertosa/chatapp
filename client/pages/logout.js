@@ -16,15 +16,23 @@ class Logout extends Component {
 
     if (!user.currentUser) {
       redirect(context, "/welcome");
+      return {};
     }
 
     await context.apolloClient.mutate({
       mutation: LOGOUT_MUTATION,
       refetchQueries: [{ query: CURRENT_USER_QUERY }]
     });
-    await redirect(context, "/welcome");
+
+    await context.apolloClient.cache.reset();
+
+    redirect(context, "/welcome");
 
     return {};
+  }
+
+  render() {
+    return null;
   }
 }
 

@@ -117,6 +117,7 @@ Chatroom.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/login");
+    return {};
   }
 
   const { chatroom } = await chatroomExists(
@@ -124,12 +125,14 @@ Chatroom.getInitialProps = async context => {
     context.query.name
   );
 
-  if (!chatroom) {
+  if (!chatroom.currentChatroom) {
     redirect(context, "/");
+    return {};
   }
 
   if (chatroom.currentChatroom.admin_id !== user.currentUser.id) {
     redirect(context, "/");
+    return {};
   }
 
   return {

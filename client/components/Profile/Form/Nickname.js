@@ -49,7 +49,9 @@ class Nickname extends Component {
             >
               {(changeNickname, { data, error, loading }) => (
                 <Formik
-                  initialValues={{ nickname: currentUser.nickname }}
+                  initialValues={{
+                    nickname: currentUser ? currentUser.nickname : ""
+                  }}
                   validate={values => {
                     this.setState({ successMessage: null, errorMessage: null });
                     let errors = {};

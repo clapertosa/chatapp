@@ -29,5 +29,5 @@ export default (apolloClient, name) =>
       return { chatroom: data };
     })
     .catch(() => {
-      return { user: {} };
+      return { chatroom: {} };
     });

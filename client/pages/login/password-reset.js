@@ -137,7 +137,7 @@ const PasswordReset = ({ token }) => {
   );
 };
 
-PasswordReset.getInitialProps = ({ query }) => {
+PasswordReset.getInitialProps = async ({ query }) => {
   return { token: query.token };
 };
 

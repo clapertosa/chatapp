@@ -50,6 +50,7 @@ Index.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/login");
+    return {};
   }
 
   const chatrooms = await context.apolloClient.query({

@@ -105,7 +105,14 @@ class Avatar extends Component {
                       {this.state.loading || loading ? (
                         <Spinner width="200px" />
                       ) : (
-                        <img src={currentUser.avatar} alt="Your avatar" />
+                        <img
+                          src={
+                            currentUser
+                              ? currentUser.avatar
+                              : "/static/images/balloons.svg"
+                          }
+                          alt="Your avatar"
+                        />
                       )}
                     </label>
                     <input

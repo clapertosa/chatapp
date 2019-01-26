@@ -39,6 +39,7 @@ Index.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/welcome");
+    return {};
   }
 
   // Get user's chatrooms and those in which he wrote

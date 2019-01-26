@@ -6,6 +6,8 @@ module.exports = {
   createChatroom: async ({ chatroomInput: { name } }, { req }) => {
     if (!req.session.isLoggedIn) {
       throw new Error("Unauthorized");
+    } else if (!req.session.user.activated) {
+      throw new Error("You must activate your account!");
     }
 
     const chatroom = await knex("chatrooms")
@@ -55,6 +57,8 @@ module.exports = {
   joinChatroom: async ({ name }, { req, res }) => {
     if (!req.session.isLoggedIn) {
       return null;
+    } else if (!req.session.user.activated) {
+      throw new Error("You must activate your account!");
     }
 
     //* Check if chatroom exists
