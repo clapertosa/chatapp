@@ -17,7 +17,8 @@ const Container = styled.div`
 const Input = styled.textarea`
   border: none;
   background-color: ${({ theme: { colors } }) => colors.lightBlue};
-  font-size: 1rem;
+  font-family: "SourceSansPro";
+  font-size: 1.2rem;
   color: ${({ theme: { colors } }) => colors.lightPink};
   width: 80%;
   height: auto;

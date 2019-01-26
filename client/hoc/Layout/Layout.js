@@ -40,9 +40,16 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     @font-face {
+    font-family: 'SourceSansPro';
+    src: url("../../static/fonts/SourceSansPro-SemiBold.ttf");
+  }
+
+    @font-face {
     font-family: 'Webpixel';
     src: url("../../static/fonts/webpixel bitmap_black.otf");
   }
+
+  font-family: "SourceSansPro";
 
     width: 100%;
     height: 100%;
