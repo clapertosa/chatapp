@@ -120,7 +120,7 @@ module.exports = {
     } catch (err) {
       if (err.message === "jwt expired") {
         const decodedUser = await jwt.decode(token);
-        const newToken = jwt.sign(
+        const newToken = await jwt.sign(
           {
             id: decodedUser.id,
             email: decodedUser.email,
@@ -129,7 +129,7 @@ module.exports = {
           keys.JWT,
           { expiresIn: "24hr" }
         );
-        sendEmail(
+        await sendEmail(
           decodedUser.email,
           "chat-app@no-reply.com",
           "🍹 Chat-App - Account Activation",

@@ -64,6 +64,7 @@ const Validate = ({ error, success }) => {
 Validate.getInitialProps = async ({ apolloClient, query }) => {
   let error;
   let res;
+
   try {
     res = await apolloClient.mutate({
       mutation: ACTIVATE_USER_MUTATION,
