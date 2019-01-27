@@ -26,16 +26,18 @@ class ChatroomMessages extends Component {
     const { scrollTop, scrollHeight, clientHeight } = document.querySelector(
       "#container"
     );
+    if (this.props.messages.length > 0) {
+      const lastMessageHeight = Number.parseInt(
+        getComputedStyle(
+          document.querySelector("#messages").lastChild.previousSibling
+        )
+          .getPropertyValue("height")
+          .replace("px", "")
+      );
 
-    const lastMessageHeight = Number.parseInt(
-      getComputedStyle(
-        document.querySelector("#messages").lastChild.previousSibling
-      )
-        .getPropertyValue("height")
-        .replace("px", "")
-    );
-    if (scrollTop + clientHeight + lastMessageHeight >= scrollHeight) {
-      this.scrollToBottom("smooth");
+      if (scrollTop + clientHeight + lastMessageHeight >= scrollHeight) {
+        this.scrollToBottom("smooth");
+      }
     }
   }
 
