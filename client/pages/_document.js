@@ -26,6 +26,14 @@ export default class MyDocument extends Document {
             property="og:description"
             content="A chat app created with Nextjs and Socket.io"
           />
+          <meta
+            property="og:url"
+            content="https://nyan-chatapp.herokuapp.com/"
+          />
+          <meta
+            property="og:image"
+            content="https://nyan-chatapp.herokuapp.com/static/images/nyan_cat.gif"
+          />
           <meta property="og:type" content="website" />
           <link
             rel="shortcut icon"
