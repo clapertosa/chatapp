@@ -71,11 +71,9 @@ Validate.getInitialProps = async ({ apolloClient, query }) => {
       variables: { token: query.token }
     });
   } catch (err) {
-    error =
-      err.graphQLErrors && err.graphQLErrors.error
-        ? err.graphQLErrors[0].error.message
-        : err;
+    error = err && err.graphQLErrors ? err.graphQLErrors[0].error.message : err;
   }
+
   return { error, success: res };
 };
 

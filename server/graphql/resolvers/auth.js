@@ -109,8 +109,10 @@ module.exports = {
       .first()
       .where({ id: decodedUser.id })
       .select("activated");
-    console.log(user.activated);
-    if (user.activated) {
+
+    if (!user) {
+      throw new Error("User doesn't exists");
+    } else if (user.activated) {
       throw new Error("Your account is already activated");
     }
 
