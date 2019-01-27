@@ -17,23 +17,36 @@ const Container = styled.div`
 
 class ChatroomMessages extends Component {
   componentDidMount() {
-    this.scrollToBottom("smooth");
+    setTimeout(() => {
+      this.scrollToBottom("smooth");
+    }, 200);
   }
 
   componentDidUpdate() {
-    this.scrollToBottom("smooth");
+    const { scrollTop, scrollHeight, clientHeight } = document.querySelector(
+      "#container"
+    );
+
+    const lastMessageHeight = Number.parseInt(
+      getComputedStyle(
+        document.querySelector("#messages").lastChild.previousSibling
+      )
+        .getPropertyValue("height")
+        .replace("px", "")
+    );
+    if (scrollTop + clientHeight + lastMessageHeight >= scrollHeight) {
+      this.scrollToBottom("smooth");
+    }
   }
 
   scrollToBottom = behavior => {
-    setTimeout(() => {
-      this.messagesEnd.scrollIntoView({ behavior });
-    }, 200);
+    this.messagesEnd.scrollIntoView({ behavior });
   };
 
   render() {
     return (
-      <Container>
-        <ul>
+      <Container id="container">
+        <ul id="messages">
           {this.props.messages.map((message, index) => (
             <ChatroomMessage
               key={index}

@@ -29,7 +29,10 @@ Chatroom.getInitialProps = async context => {
   if (!chatroom.currentChatroom) {
     redirect(context, "/");
     return {};
-  } else {
+  }
+
+  //* Check if chatroom is protected
+  if (chatroom.currentChatroom.protected) {
     const { permission } = await checkPermission(
       context.apolloClient,
       chatroom.currentChatroom.id
@@ -38,6 +41,7 @@ Chatroom.getInitialProps = async context => {
       redirect(context, `/access/chatroom/${chatroom.currentChatroom.name}`);
     }
   }
+
   return {
     user: user.currentUser,
     chatroom: chatroom.currentChatroom
