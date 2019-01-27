@@ -12,7 +12,10 @@ if (!process.browser) {
 
 function create(initialState, { getToken, cookies }) {
   const httpLink = createHttpLink({
-    uri: "http://localhost:3000/graphql",
+    uri:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/graphql"
+        : "https://nyan-chatapp.herokuapp.com/graphql",
     credentials: "include"
   });
 

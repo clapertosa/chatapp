@@ -2,6 +2,7 @@ const app = require("express")();
 const session = require("express-session");
 const client = require("redis").createClient(process.env.REDIS_URL);
 const RedisStore = require("connect-redis")(session);
+const helmet = require("helmet");
 const graphqlHTTP = require("express-graphql");
 const graphqlSchema = require("./graphql/schema");
 const graphqlResolvers = require("./graphql/resolvers");
@@ -60,6 +61,9 @@ nextApp.prepare().then(() => {
     })
   );
 
+  // Helmet config
+  app.use(helmet({ hidePoweredBy: { setTo: "Cheri Lady" } }));
+
   // GraphQL config
   app.use("/graphql", (req, res) => {
     graphqlHTTP({
@@ -99,6 +103,6 @@ nextApp.prepare().then(() => {
 
   server.listen(port, err => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    console.log(`> Ready on port: ${port}`);
   });
 });
