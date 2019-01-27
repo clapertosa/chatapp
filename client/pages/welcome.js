@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Head from "next/head";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
@@ -8,6 +9,9 @@ class Welcome extends Component {
   render() {
     return (
       <div>
+        <Head>
+          <title>Chat App 🎈 | Welcome</title>
+        </Head>
         <Jumbotron fadeInTime="2.3s" width="70%">
           <h1>Welcome to Chat App</h1>
           <img

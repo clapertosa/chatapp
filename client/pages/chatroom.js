@@ -1,14 +1,22 @@
+import Head from "next/head";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 import chatroomExists from "../lib/chatroomExists";
 import checkPermission from "../lib/checkPermission";
 import ChatroomContainer from "../containers/Chatroom";
 
-const Chatroom = props => {
-  if (!props.chatroom && !props.user) {
+const Chatroom = ({ chatroom, user }) => {
+  if (!chatroom && !user) {
     return null;
   }
-  return <ChatroomContainer chatroom={props.chatroom} user={props.user} />;
+  return (
+    <>
+      <Head>
+        <title>Chat App 🎈 | "{chatroom.name}" chatroom 🍹</title>
+      </Head>
+      <ChatroomContainer chatroom={chatroom} user={user} />
+    </>
+  );
 };
 
 Chatroom.getInitialProps = async context => {

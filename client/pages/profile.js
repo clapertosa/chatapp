@@ -1,9 +1,17 @@
+import Head from "next/head";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 import { default as ProfileComponent } from "../components/Profile/Profile";
 
-const Profile = () => {
-  return <ProfileComponent />;
+const Profile = ({ nickname }) => {
+  return (
+    <>
+      <Head>
+        <title>Chat App 🎈 | {nickname}'s profile</title>
+      </Head>
+      <ProfileComponent />
+    </>
+  );
 };
 
 Profile.getInitialProps = async context => {
@@ -11,9 +19,10 @@ Profile.getInitialProps = async context => {
 
   if (!user.currentUser) {
     redirect(context, "/login");
+    return {};
   }
 
-  return {};
+  return { nickname: user.currentUser.nickname };
 };
 
 export default Profile;

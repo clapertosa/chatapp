@@ -1,9 +1,17 @@
+import Head from "next/head";
 import LoginForm from "../../components/Form/LoginForm/LoginForm";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 
 const Login = () => {
-  return <LoginForm />;
+  return (
+    <>
+      <Head>
+        <title>Chat App 🎈 | User login</title>
+      </Head>
+      <LoginForm />
+    </>
+  );
 };
 
 Login.getInitialProps = async context => {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Head from "next/head";
 import Router from "next/router";
 import { ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
@@ -80,6 +81,11 @@ class Chatroom extends Component {
       <ApolloConsumer>
         {client => (
           <Container>
+            <Head>
+              <title>
+                Chat App 🎈 | {this.props.chatroom.name}'s settings 🔧
+              </title>
+            </Head>
             {this.props.chatroom.protected ? (
               <h1>
                 Current Status: protected

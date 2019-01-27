@@ -1,3 +1,4 @@
+import Head from "next/head";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 import gql from "graphql-tag";
@@ -33,6 +34,9 @@ const Title = styled.h1`
 const Index = ({ chatrooms }) => {
   return chatrooms.length > 0 ? (
     <Container>
+      <Head>
+        <title>Chat App 🎈 | Your Chatrooms list</title>
+      </Head>
       <Title>Edit Chatrooms</Title>
       <Card title="Chatrooms list" chatrooms={chatrooms} settings />
     </Container>

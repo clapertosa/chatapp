@@ -1,3 +1,4 @@
+import Head from "next/head";
 import gql from "graphql-tag";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
@@ -27,10 +28,15 @@ const GET_WRITTEN_IN_CHATROOMS_QUERY = gql`
 
 const Index = ({ userChatrooms, writtenInChatrooms }) => {
   return (
-    <CreateJoin
-      userChatrooms={userChatrooms}
-      writtenInChatrooms={writtenInChatrooms}
-    />
+    <>
+      <Head>
+        <title>Chat App 🎈 | Home</title>
+      </Head>
+      <CreateJoin
+        userChatrooms={userChatrooms}
+        writtenInChatrooms={writtenInChatrooms}
+      />
+    </>
   );
 };
 

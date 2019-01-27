@@ -22,7 +22,7 @@ class MyApp extends App {
       <Container>
         <ApolloProvider client={apolloClient}>
           <Head>
-            <title>Chat App</title>
+            <title>Chat App 🎈</title>
           </Head>
           <Layout>
             <Component {...pageProps} />

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Formik } from "formik";
@@ -23,6 +24,9 @@ const NewPassword = () => {
     <Mutation mutation={NEW_PASSWORD_MUTATION}>
       {(newPassword, { error, data, loading }) => (
         <>
+          <Head>
+            <title>Chat App 🎈 | Forgot password 🤕</title>
+          </Head>
           <Formik
             initialValues={{ email: "" }}
             validate={values => {

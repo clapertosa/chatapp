@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Formik } from "formik";
@@ -30,6 +31,9 @@ const PasswordReset = ({ token }) => {
     <Mutation mutation={RESET_PASSWORD_MUTATION}>
       {(resetPassword, { data, error, loading }) => (
         <>
+          <Head>
+            <title>Chat App 🎈 | Password reset</title>
+          </Head>
           <Formik
             initialValues={{ newPassword: "", confirmNewPassword: "" }}
             validate={values => {

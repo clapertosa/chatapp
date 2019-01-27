@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Head from "next/head";
 import checkLoggedIn from "../../lib/checkLoggedIn";
 import redirect from "../../lib/redirect";
 import RegistrationForm from "../../components/Form/RegistrationForm/RegistrationForm";
@@ -16,6 +17,9 @@ class Registration extends Component {
   render() {
     return (
       <>
+        <Head>
+          <title>Chat App 🎈 | New User registration</title>
+        </Head>
         <RegistrationForm showModal={this.setShowModal} />
         <Modal showModal={this.state.showModal}>
           Thanks for your registration! Check your emails to activate your

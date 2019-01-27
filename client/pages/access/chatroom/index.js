@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
@@ -29,75 +30,80 @@ class Access extends Component {
     return (
       <Mutation mutation={GRANT_PERMISSION_MUTATION}>
         {(grantPermission, { data, error, loading }) => (
-          <Formik
-            initialValues={{ password: "" }}
-            validate={values => {
-              let errors = {};
+          <>
+            <Head>
+              <title>Chat App 🎈 | Access validation</title>
+            </Head>
+            <Formik
+              initialValues={{ password: "" }}
+              validate={values => {
+                let errors = {};
 
-              if (values.password.length <= 0) {
-                errors.password = "Required";
-              }
+                if (values.password.length <= 0) {
+                  errors.password = "Required";
+                }
 
-              return errors;
-            }}
-            onSubmit={async (values, { setSubmitting }) => {
-              this.setState({ password: values.password });
-              try {
-                await grantPermission({
-                  variables: {
-                    name: this.props.chatroomName,
-                    password: values.password
-                  }
-                });
-                setSubmitting(false);
-                Router.replace(`/chatroom/${this.props.chatroomName}`);
-              } catch (e) {
-                setSubmitting(false);
-              }
-            }}
-          >
-            {({
-              handleSubmit,
-              handleChange,
-              handleBlur,
-              isSubmitting,
-              values,
-              errors,
-              touched
-            }) => (
-              <StyledContainer>
-                <StyledForm
-                  method="POST"
-                  handleSubmit={handleSubmit}
-                  title="Chatroom Password"
-                  button={
-                    <StyledButton
-                      type="submit"
-                      disabled={isSubmitting || loading}
-                    >
-                      {loading ? <Spinner /> : "Submit"}
-                    </StyledButton>
-                  }
-                >
-                  <StyledInput
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    name="password"
-                    type="password"
-                  />
-                  {errors.password && touched.password && errors.password && (
-                    <StyledError>{errors.password}</StyledError>
-                  )}
-                  {!errors.password &&
-                    error &&
-                    values.password === this.state.password &&
-                    error.graphQLErrors && (
-                      <StyledError errors={error.graphQLErrors} />
+                return errors;
+              }}
+              onSubmit={async (values, { setSubmitting }) => {
+                this.setState({ password: values.password });
+                try {
+                  await grantPermission({
+                    variables: {
+                      name: this.props.chatroomName,
+                      password: values.password
+                    }
+                  });
+                  setSubmitting(false);
+                  Router.replace(`/chatroom/${this.props.chatroomName}`);
+                } catch (e) {
+                  setSubmitting(false);
+                }
+              }}
+            >
+              {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                isSubmitting,
+                values,
+                errors,
+                touched
+              }) => (
+                <StyledContainer>
+                  <StyledForm
+                    method="POST"
+                    handleSubmit={handleSubmit}
+                    title="Chatroom Password"
+                    button={
+                      <StyledButton
+                        type="submit"
+                        disabled={isSubmitting || loading}
+                      >
+                        {loading ? <Spinner /> : "Submit"}
+                      </StyledButton>
+                    }
+                  >
+                    <StyledInput
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      name="password"
+                      type="password"
+                    />
+                    {errors.password && touched.password && errors.password && (
+                      <StyledError>{errors.password}</StyledError>
                     )}
-                </StyledForm>
-              </StyledContainer>
-            )}
-          </Formik>
+                    {!errors.password &&
+                      error &&
+                      values.password === this.state.password &&
+                      error.graphQLErrors && (
+                        <StyledError errors={error.graphQLErrors} />
+                      )}
+                  </StyledForm>
+                </StyledContainer>
+              )}
+            </Formik>
+          </>
         )}
       </Mutation>
     );
