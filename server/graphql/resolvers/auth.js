@@ -109,6 +109,7 @@ module.exports = {
       .first()
       .where({ id: decodedUser.id })
       .select("activated");
+    console.log(user.activated);
     if (user.activated) {
       throw new Error("Your account is already activated");
     }
@@ -146,7 +147,10 @@ module.exports = {
     await knex("users")
       .update({ activated: true })
       .where({ id: decodedUser.id });
-    req.session.user.activated = true;
+
+    if (req.session.user && req.session.user.isLoggedIn) {
+      req.session.user.activated = true;
+    }
 
     return "Activated";
   },
