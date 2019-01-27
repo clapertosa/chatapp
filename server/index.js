@@ -41,6 +41,11 @@ io.on("connection", socket => {
 });
 
 nextApp.prepare().then(() => {
+  // Trust first proxy if in production
+  if (app.get("env") === "production") {
+    app.set("trust proxy", 1);
+  }
+
   // express-session config
   app.use(
     session({
