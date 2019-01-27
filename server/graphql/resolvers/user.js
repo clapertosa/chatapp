@@ -136,20 +136,14 @@ module.exports = {
       return null;
     }
 
-    let chatrooms = await knex("messages")
-      .where({ user_id: req.session.user.id })
-      .innerJoin("chatrooms", "chatrooms.id", "messages.chatroom_id")
-      .select(
-        "chatrooms.name",
-        "chatrooms.id",
-        "chatrooms.protected",
-        "messages.created_at"
-      )
-      .orderBy("messages.created_at", "DESC")
-      .distinct("chatrooms.id")
-      .limit(11);
+    let chatrooms = await knex.raw(`SELECT DISTINCT ON (chatroom_id) chatroom_id,
+    user_id, messages.created_at, chatrooms.id, name, protected
+    FROM messages
+    INNER JOIN chatrooms ON messages.chatroom_id = chatrooms.id
+    WHERE user_id = ${req.session.user.id}
+    LIMIT 11`);
 
-    chatrooms = chatrooms.map(chatroom => {
+    chatrooms = chatrooms.rows.map(chatroom => {
       return { ...chatroom, created_at: chatroom.created_at.toISOString() };
     });
 

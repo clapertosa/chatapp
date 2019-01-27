@@ -55,6 +55,14 @@ Index.getInitialProps = async context => {
     query: GET_WRITTEN_IN_CHATROOMS_QUERY
   });
 
+  getWrittenInChatrooms.sort((a, b) => {
+    let keyA = new Date(a.created_at),
+      keyB = new Date(b.created_at);
+    if (keyA > keyB) return -1;
+    if (keyA < keyB) return 1;
+    return 0;
+  });
+
   return {
     userChatrooms: getMyChatrooms,
     writtenInChatrooms: getWrittenInChatrooms
