@@ -181,6 +181,7 @@ class CreateJoin extends Component {
                       }
                     >
                       <StyledInput
+                        autoCapitalize="off"
                         type="text"
                         name="name"
                         value={values.name}

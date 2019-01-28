@@ -116,6 +116,7 @@ class Nickname extends Component {
                       }
                     >
                       <StyledInput
+                        autoCapitalize="off"
                         handleBlur={handleBlur}
                         handleChange={handleChange}
                         name="nickname"

@@ -28,6 +28,7 @@ const Label = styled.label`
 
 const StyledInput = ({
   label,
+  autoCapitalize,
   autoComplete,
   autoFocus,
   type,
@@ -42,6 +43,7 @@ const StyledInput = ({
     <Container>
       <Label htmlFor={type}>{label}</Label>
       <Input
+        autoCapitalize={autoCapitalize}
         autoFocus={autoFocus}
         autoComplete={autoComplete}
         type={type}

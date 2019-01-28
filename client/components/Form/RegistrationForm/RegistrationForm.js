@@ -128,6 +128,7 @@ class RegistrationForm extends Component {
                   >
                     <StyledInput
                       autoFocus
+                      autoCapitalize="off"
                       autoComplete="off"
                       label="Nickname (lowercase)"
                       type="text"
