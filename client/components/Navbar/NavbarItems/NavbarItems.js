@@ -78,7 +78,7 @@ const NavbarItems = ({ sideDrawer, showSideDrawerToggle, closeSideDrawer }) => {
       {({ data: { currentUser } }) => (
         <ContainerDesktop>
           <Left>
-            <Logo navbar />
+            <Logo navbar closeSideDrawer={closeSideDrawer} />
           </Left>
           <Right>
             <NavbarItem href={`/${currentUser ? "profile" : "login"}`}>

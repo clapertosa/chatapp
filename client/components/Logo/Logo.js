@@ -17,9 +17,9 @@ const Container = styled.div`
   }
 `;
 
-const Logo = ({ navbar }) => {
+const Logo = ({ navbar, closeSideDrawer }) => {
   return (
-    <Container navbar={navbar}>
+    <Container navbar={navbar} onClick={closeSideDrawer}>
       <Link href="/">
         <a>
           <img src="/static/images/logo.svg" alt="Chat balloon logo" />
