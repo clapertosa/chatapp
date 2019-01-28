@@ -1,4 +1,5 @@
 const app = require("express")();
+const compression = require("compression");
 const session = require("express-session");
 const client = require("redis").createClient(process.env.REDIS_URL);
 const RedisStore = require("connect-redis")(session);
@@ -45,6 +46,9 @@ nextApp.prepare().then(() => {
   if (app.get("env") === "production") {
     app.set("trust proxy", 1);
   }
+
+  // Gzip compression
+  app.use(compression());
 
   // express-session config
   app.use(
