@@ -24,6 +24,7 @@ const ContainerDesktop = styled.div`
 
 const ContainerMobile = styled.div`
   border: 1px solid ${props => props.theme.colors.strongPink};
+  background-color: ${({ theme: { colors } }) => colors.strongBlue};
   margin: 10px auto;
   height: 100%;
   width: 90%;
