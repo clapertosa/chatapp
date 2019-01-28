@@ -114,7 +114,7 @@ module.exports = {
     //* Check if logged user has already access to chatroom
     const userIsPermitted = await knex("permissions")
       .first()
-      .where({ user_id: req.session.user.id });
+      .where({ user_id: req.session.user.id, chatroom_id: chatroom.id });
 
     if (userIsPermitted) {
       throw new Error("User already permitted");
