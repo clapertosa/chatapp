@@ -8,6 +8,7 @@ const Button = styled.button`
   margin: ${props => props.margin};
   text-transform: uppercase;
   font-size: 1.3rem;
+  font-weight: bold;
   max-width: 130px;
 
   &:active {
