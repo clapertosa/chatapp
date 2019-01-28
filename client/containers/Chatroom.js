@@ -15,6 +15,12 @@ const Container = styled.div`
   grid-template-areas: "header" "messages" "input";
   grid-template-rows: auto 1fr auto;
 
+  @supports (-webkit-appearance: none) {
+    .os-android & {
+      height: calc(100vh - ${({ theme }) => theme.mobileNavbarHeight} - 3.5rem);
+    }
+  }
+
   @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
     display: grid;
     grid-template-areas: "header header" "users messages" "users input";
