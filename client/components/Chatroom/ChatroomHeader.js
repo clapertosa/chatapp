@@ -4,6 +4,7 @@ import StyledLink from "../styles/StyledLink";
 
 const Container = styled.div`
   grid-area: header;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,11 +28,14 @@ const Container = styled.div`
 
 const Title = styled.span`
   font-family: "Webpixel";
-  font-size: 3rem;
+  font-size: 2rem;
 `;
 
 const Options = styled.div`
   display: flex;
+  i {
+    font-size: 1.5rem;
+  }
 `;
 
 const Cog = styled.i`

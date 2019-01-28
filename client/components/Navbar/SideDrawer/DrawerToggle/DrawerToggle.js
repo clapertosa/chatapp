@@ -5,11 +5,14 @@ const Container = styled.div`
   cursor: pointer;
 
   i {
-    font-size: 2.7rem;
+    font-size: 2rem;
   }
 
   @media (min-width: ${props => props.theme.mediaQuery.minWidth}) {
     display: none;
+    i {
+      font-size: 2.7rem;
+    }
   }
 `;
 

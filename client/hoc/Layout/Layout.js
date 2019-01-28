@@ -4,6 +4,7 @@ import Particles from "../../components/Particles/Particles";
 
 const theme = {
   navbarHeight: "4rem",
+  mobileNavbarHeight: "2.3rem",
   colors: {
     strongPink: "#db3bc8",
     lightBlue: "#282582",
@@ -27,7 +28,7 @@ const theme = {
       left: "-16px"
     }
   },
-  mediaQuery: { minWidth: "40rem" }
+  mediaQuery: { minWidth: "45rem" }
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -97,11 +98,16 @@ const Header = styled.header`
   top: 0;
   left: 0;
   align-items: center;
-  height: ${props => props.theme.navbarHeight};
+  height: ${({ theme: { mobileNavbarHeight } }) => mobileNavbarHeight};
   background-color: ${theme.colors.strongBlue};
   border-bottom: 1px solid ${theme.colors.strongPink};
   font-family: "Webpixel";
   z-index: 100;
+  transition: all 0.3s;
+
+  @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
+    height: ${props => props.theme.navbarHeight};
+  }
 `;
 
 const Main = styled.div`

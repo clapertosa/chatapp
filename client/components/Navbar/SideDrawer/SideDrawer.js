@@ -3,11 +3,11 @@ import NavbarItems from "../NavbarItems/NavbarItems";
 
 const Container = styled.div`
   position: fixed;
-  top: ${props => props.theme.navbarHeight};
+  top: ${props => props.theme.mobileNavbarHeight};
   border-right: 1px solid ${props => props.theme.colors.strongPink};
   left: 0;
   width: 70%;
-  height: calc(100% - ${props => props.theme.navbarHeight});
+  height: calc(100% - ${props => props.theme.mobileNavbarHeight});
   background-color: ${props => props.theme.colors.strongBlue};
   background-image: url("/static/images/balloons.svg");
   background-position: center;

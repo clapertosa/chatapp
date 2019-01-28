@@ -9,7 +9,8 @@ import Backdrop from "../components/UI/Backdrop/Backdrop";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - ${({ theme }) => theme.navbarHeight});
+  height: calc(100vh - ${({ theme }) => theme.mobileNavbarHeight});
+  min-height: 200px;
   display: grid;
   grid-template-areas: "header" "messages" "input";
   grid-template-rows: auto 1fr auto;
@@ -24,6 +25,7 @@ const Container = styled.div`
     width: 95%;
     height: calc(100vh - (${({ theme }) => theme.navbarHeight} + 2rem));
     max-width: 1350px;
+    min-height: 200px;
     margin: 10px auto;
     overflow: hidden;
   }
