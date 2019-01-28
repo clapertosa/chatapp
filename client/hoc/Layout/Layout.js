@@ -36,6 +36,20 @@ const GlobalStyle = createGlobalStyle`
   }
   *, *:before, *:after {
     box-sizing: inherit;
+    scrollbar-color: #db3bc8 #fcc8c2;
+    scrollbar-width: thin;
+  }
+
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #fcc8c2;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #db3bc8;
   }
 
   html, body {
@@ -49,15 +63,11 @@ const GlobalStyle = createGlobalStyle`
     src: url("../../static/fonts/webpixel bitmap_black.otf");
   }
 
-  font-family: "SourceSansPro";
-
+    font-family: "SourceSansPro";
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 0;
     color: ${theme.colors.lightPink};
-    scrollbar-color: #db3bc8 #fcc8c2;
-    scrollbar-width: thin;
 
     a {
       color: ${theme.colors.lightPink};

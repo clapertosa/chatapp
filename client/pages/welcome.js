@@ -16,6 +16,7 @@ class Welcome extends Component {
           <h1>Welcome to Chat App</h1>
           <img
             width="100px"
+            height="auto"
             src="/static/images/logo.svg"
             alt="Chat App balloon logo"
           />

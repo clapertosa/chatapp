@@ -22,7 +22,7 @@ const Logo = ({ navbar }) => {
     <Container navbar={navbar}>
       <Link href="/">
         <a>
-          <img src="/static/images/logo.svg" />
+          <img src="/static/images/logo.svg" alt="Chat balloon logo" />
         </a>
       </Link>
     </Container>
