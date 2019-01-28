@@ -28,7 +28,7 @@ const theme = {
       left: "-16px"
     }
   },
-  mediaQuery: { minWidth: "45rem" }
+  mediaQuery: { minWidth: "51rem" }
 };
 
 const GlobalStyle = createGlobalStyle`

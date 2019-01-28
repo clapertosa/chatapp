@@ -29,12 +29,21 @@ const Container = styled.div`
 const Title = styled.span`
   font-family: "Webpixel";
   font-size: 2rem;
+  @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
+    font-size: 3rem;
+  }
 `;
 
 const Options = styled.div`
   display: flex;
   i {
     font-size: 1.5rem;
+  }
+
+  @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
+    i {
+      font-size: 2rem;
+    }
   }
 `;
 
