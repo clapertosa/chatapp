@@ -79,9 +79,9 @@ module.exports = {
 
     //* Update user email in DB and in session
     await knex("users")
-      .update({ email })
+      .update({ email: normalizeEmail(email) })
       .where({ id: req.session.user.id });
-    req.session.user.email = email;
+    req.session.user.email = normalizeEmail(email);
 
     return true;
   },
