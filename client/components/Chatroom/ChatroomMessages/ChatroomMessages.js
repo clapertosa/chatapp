@@ -18,9 +18,7 @@ const Container = styled.div`
 class ChatroomMessages extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.scrollToBottom);
-    setTimeout(() => {
-      this.scrollToBottom();
-    }, 200);
+    this.scrollToBottom();
   }
 
   componentDidUpdate() {
@@ -47,7 +45,9 @@ class ChatroomMessages extends Component {
   }
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }, 300);
   };
 
   render() {
