@@ -9,17 +9,11 @@ import Backdrop from "../components/UI/Backdrop/Backdrop";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - ${({ theme }) => theme.mobileNavbarHeight});
+  height: calc(100vh - (${({ theme }) => theme.mobileNavbarHeight}));
   min-height: 200px;
   display: grid;
   grid-template-areas: "header" "messages" "input";
   grid-template-rows: auto 1fr auto;
-
-  @supports (-webkit-appearance: none) {
-    .os-android & {
-      height: calc(100vh - ${({ theme }) => theme.mobileNavbarHeight} - 3.5rem);
-    }
-  }
 
   @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
     display: grid;

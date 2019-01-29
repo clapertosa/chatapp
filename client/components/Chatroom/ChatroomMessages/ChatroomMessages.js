@@ -17,8 +17,9 @@ const Container = styled.div`
 
 class ChatroomMessages extends Component {
   componentDidMount() {
+    window.addEventListener("resize", this.scrollToBottom);
     setTimeout(() => {
-      this.scrollToBottom("smooth");
+      this.scrollToBottom();
     }, 200);
   }
 
@@ -36,13 +37,17 @@ class ChatroomMessages extends Component {
       );
 
       if (scrollTop + clientHeight + lastMessageHeight >= scrollHeight) {
-        this.scrollToBottom("smooth");
+        this.scrollToBottom();
       }
     }
   }
 
-  scrollToBottom = behavior => {
-    this.messagesEnd.scrollIntoView({ behavior });
+  componentWillUnmount() {
+    window.removeEventListener("resize");
+  }
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   };
 
   render() {
@@ -63,6 +68,7 @@ class ChatroomMessages extends Component {
             </ChatroomMessage>
           ))}
           <div
+            id="lastMessage"
             style={{ float: "left", clear: "both" }}
             ref={el => {
               this.messagesEnd = el;
