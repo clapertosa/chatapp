@@ -41,13 +41,13 @@ class ChatroomMessages extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize");
+    window.removeEventListener("resize", this.scrollToBottom);
   }
 
   scrollToBottom = () => {
     setTimeout(() => {
       this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    }, 300);
+    }, 200);
   };
 
   render() {

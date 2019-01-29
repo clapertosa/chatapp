@@ -22,8 +22,9 @@ class Welcome extends Component {
           />
           <hr />
           <h1>
-            Please <StyledLink href="/login">Login</StyledLink> to join or
-            create chatroom
+            Please <StyledLink href="/login">login</StyledLink> or{" "}
+            <StyledLink href="/registration">register</StyledLink> to
+            join/create chatrooms
           </h1>
         </Jumbotron>
       </div>
