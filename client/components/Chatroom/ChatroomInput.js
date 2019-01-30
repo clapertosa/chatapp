@@ -120,7 +120,7 @@ class ChatroomInput extends Component {
             />
             <Send
               onClick={async () => {
-                if (this.validateMessage) {
+                if (this.validateMessage()) {
                   await createMessage();
                   this.submitMessage();
                   this.setState({ message: "" });
