@@ -17,16 +17,19 @@ const Container = styled.div`
 
 class ChatroomMessages extends Component {
   componentDidMount() {
-    window.addEventListener("resize", this.scrollToBottom);
-    this.scrollToBottom();
+    window.addEventListener("resize", () => this.scrollToBottom("auto"));
+    setTimeout(() => {
+      this.scrollToBottom("smooth");
+    }, 200);
   }
 
   componentDidUpdate() {
     const { scrollTop, scrollHeight, clientHeight } = document.querySelector(
       "#container"
     );
+
     if (this.props.messages.length > 0) {
-      const lastMessageHeight = Number.parseInt(
+      const newMessageHeight = Number.parseInt(
         getComputedStyle(
           document.querySelector("#messages").lastChild.previousSibling
         )
@@ -34,20 +37,33 @@ class ChatroomMessages extends Component {
           .replace("px", "")
       );
 
-      if (scrollTop + clientHeight + lastMessageHeight >= scrollHeight) {
+      const lastMessageHeight =
+        this.props.messages.length > 1
+          ? Number.parseInt(
+              getComputedStyle(
+                document.querySelector("#messages").lastChild.previousSibling
+                  .previousSibling
+              )
+                .getPropertyValue("height")
+                .replace("px", "")
+            )
+          : 0;
+
+      if (
+        scrollTop + clientHeight + newMessageHeight + lastMessageHeight >=
+        scrollHeight
+      ) {
         this.scrollToBottom();
       }
     }
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.scrollToBottom);
+    window.removeEventListener("resize", () => this.scrollToBottom("auto"));
   }
 
-  scrollToBottom = () => {
-    setTimeout(() => {
-      this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-    }, 200);
+  scrollToBottom = (behavior = "auto") => {
+    this.messagesEnd.scrollIntoView({ behavior });
   };
 
   render() {
