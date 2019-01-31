@@ -66,7 +66,7 @@ class ChatroomInput extends Component {
     const message = {
       chatroomId: this.props.chatroomId,
       message: this.state.message,
-      userId: this.props.user.id,
+      user_id: this.props.user.id,
       nickname: this.props.user.nickname,
       avatar: this.props.user.avatar,
       timestamp: new Date()
