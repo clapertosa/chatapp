@@ -58,6 +58,18 @@ class ChatroomMessages extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { userId, messages } = nextProps;
+    if (
+      messages.length > this.props.messages.length &&
+      this.props.messages.length > 0 &&
+      userId !== messages[messages.length - 1].user_id
+    ) {
+      const newMessageAudio = new Audio("/static/sounds/new_message.wav");
+      newMessageAudio.play();
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener("resize", () => this.scrollToBottom("auto"));
   }
