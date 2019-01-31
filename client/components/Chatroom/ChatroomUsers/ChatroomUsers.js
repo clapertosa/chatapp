@@ -3,7 +3,7 @@ import ChatroomUser from "./ChatroomUser";
 
 const Container = styled.div`
   position: fixed;
-  height: calc(100vh - 4rem);
+  height: calc(100% - (${({ theme }) => theme.mobileNavbarHeight}));
   width: 50%;
   padding: 10px;
   background-color: ${({ theme: { colors } }) => colors.strongBlue};

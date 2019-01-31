@@ -9,7 +9,8 @@ import Backdrop from "../components/UI/Backdrop/Backdrop";
 
 const Container = styled.div`
   width: 100%;
-  height: calc(100vh - (${({ theme }) => theme.mobileNavbarHeight}));
+  position: absolute;
+  height: calc(100% - (${({ theme }) => theme.mobileNavbarHeight}));
   min-height: 200px;
   display: grid;
   grid-template-areas: "header" "messages" "input";
@@ -17,6 +18,7 @@ const Container = styled.div`
 
   @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
     display: grid;
+    position: relative;
     grid-template-areas: "header header" "users messages" "users input";
     grid-template-columns: 0.3fr 1fr;
     grid-template-rows: auto 1fr auto;
@@ -98,6 +100,7 @@ class Chatroom extends Component {
           showBackdrop={this.state.showUsers}
           closeSideDrawer={this.closeSideDrawer}
           zIndex={10}
+          usersSideDrawer
         />
       </Container>
     );
