@@ -16,11 +16,17 @@ const Container = styled.div`
 `;
 
 class ChatroomMessages extends Component {
+  state = {
+    componentLoaded: false
+  };
+
   componentDidMount() {
     window.addEventListener("resize", () => this.scrollToBottom("auto"));
+    this.newMessageAudio = new Audio("/static/sounds/new_message.wav");
     setTimeout(() => {
       this.scrollToBottom("smooth");
     }, 200);
+    this.setState({ componentLoaded: true });
   }
 
   componentDidUpdate() {
@@ -62,11 +68,10 @@ class ChatroomMessages extends Component {
     const { userId, messages } = nextProps;
     if (
       messages.length > this.props.messages.length &&
-      this.props.messages.length > 0 &&
+      this.state.componentLoaded &&
       userId !== messages[messages.length - 1].user_id
     ) {
-      const newMessageAudio = new Audio("/static/sounds/new_message.wav");
-      newMessageAudio.play();
+      this.newMessageAudio.play();
     }
   }
 
