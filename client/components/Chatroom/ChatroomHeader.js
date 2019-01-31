@@ -58,12 +58,22 @@ const DrawerToggle = styled.i`
   font-size: 2rem;
   cursor: pointer;
 
+  span {
+    font-style: normal;
+    font-size: 1.2rem;
+  }
+
   @media (min-width: ${({ theme: { mediaQuery } }) => mediaQuery.minWidth}) {
     display: none;
   }
 `;
 
-const ChatroomHeader = ({ showUsersDrawerToggle, adminId, name }) => {
+const ChatroomHeader = ({
+  showUsersDrawerToggle,
+  adminId,
+  name,
+  usersNumber
+}) => {
   return (
     <User>
       {({ data: { currentUser } }) => (
@@ -73,7 +83,9 @@ const ChatroomHeader = ({ showUsersDrawerToggle, adminId, name }) => {
             <DrawerToggle
               onClick={showUsersDrawerToggle}
               className="icon-users"
-            />
+            >
+              <span>{usersNumber}</span>
+            </DrawerToggle>
             {currentUser.id === adminId ? (
               <StyledLink href={`/settings/chatroom/${name}`} noBorder noHover>
                 <Cog className="icon-cog" />

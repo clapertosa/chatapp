@@ -82,6 +82,7 @@ class Chatroom extends Component {
           showUsersDrawerToggle={this.showUsersDrawerToggle}
           adminId={this.props.chatroom.admin_id}
           name={this.props.chatroom.name}
+          usersNumber={this.state.users.length}
         />
         <ChatroomUsers
           show={this.state.showUsers}
