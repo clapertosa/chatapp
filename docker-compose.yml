@@ -1,0 +1,29 @@
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  postgres:
+    image: "postgres"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chat-app
+    ports:
+      - "5433:5432"
+  web:
+    restart: "always"
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    command: sh -c "cd server && knex migrate:latest && knex seed:run && npm run dev"
+    volumes:
+      - /app/node_modules
+      - ./server:/app/server
+      - ./client:/app/client
+    depends_on:
+      - redis
+      - postgres

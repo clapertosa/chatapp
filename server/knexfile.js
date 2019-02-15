@@ -2,11 +2,13 @@
 
 module.exports = {
   development: {
-    client: "postgresql",
+    client: "pg",
     connection: {
-      database: "chat-app",
+      host: "postgres",
       user: "postgres",
-      password: "password"
+      password: "postgres",
+      port: "",
+      database: "chat-app"
     }
   },
 
