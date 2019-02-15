@@ -1,7 +1,9 @@
 const app = require("express")();
 const compression = require("compression");
 const session = require("express-session");
-const client = require("redis").createClient(process.env.REDIS_URL);
+const client = require("redis").createClient(
+  process.env.REDIS_URL || { host: "redis" }
+);
 const RedisStore = require("connect-redis")(session);
 const helmet = require("helmet");
 const graphqlHTTP = require("express-graphql");

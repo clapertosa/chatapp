@@ -192,6 +192,10 @@ module.exports = {
       .select("id", "nickname", "email", "activated", "avatar")
       .where({ id: req.session.user.id });
 
+    if (!user) {
+      return null;
+    }
+
     return {
       id: user.id,
       nickname: user.nickname,

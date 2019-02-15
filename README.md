@@ -11,6 +11,11 @@
 <img align="center" height="650px" src="https://i.imgur.com/9HeLPjt.png"/>
 </div>
 <hr>
+<h1 align="center">Docker 🐳</h1>
+<p>To start this project on your local machine, install Docker and Docker-compose and start with the command: <code>docker-compose up --build</code>.</p>
+<p>email: tester@tester.com</p>
+<p>password: password</p>
+<hr>
 <h3>Credits</h3>
 <p><b>Host: <a href="https://www.heroku.com/">Heroku</a></b></p>
 <p><b>Logo: <a href="https://www.flaticon.com/free-icon/speech-bubble_1078011#term=talk&page=1&position=1">Flaticon</a></b></p>
