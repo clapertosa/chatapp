@@ -15,6 +15,7 @@
 <p>To start this project on your local machine, install Docker and Docker-compose and start with the command: <code>docker-compose up --build</code>.</p>
 <p>email: tester@tester.com</p>
 <p>password: password</p>
+<b>Remember to put your Cloudinary API key in <code>/server/config/publicDev.js</code></b>
 <hr>
 <h3>Credits</h3>
 <p><b>Host: <a href="https://www.heroku.com/">Heroku</a></b></p>
